@@ -16,10 +16,55 @@
   margin: 0 auto;
 }
 
+.cl-floral-wrap {
+  position: relative;
+  line-height: 0;
+}
+
 .cl-floral {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.cl-credit {
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 72%;
+  text-align: center;
+  font-family: var(--serif-plain);
+  font-size: clamp(0.68rem, 1.6vw, 0.8rem);
+  line-height: 1.7;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  opacity: 0.8;
+  text-decoration: none;
+  text-shadow:
+    0 0 12px rgba(255, 248, 235, 1),
+    0 0 24px rgba(255, 248, 235, 0.9);
+}
+
+.cl-credit:hover {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .cl-credit {
+    top: 28%;
+    max-width: 60%;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+  }
+  .cl-credit-sep {
+    display: none;
+  }
+  .cl-credit-line {
+    display: block;
+    text-align: center;
+  }
 }
 
 .cl-mono {
@@ -46,11 +91,3 @@
   padding-left: 0.4em;
 }
 
-.cl-credit {
-  margin-top: 0.4rem;
-  font-family: var(--serif-plain);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-soft);
-  opacity: 0.55;
-}

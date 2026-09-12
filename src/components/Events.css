@@ -1,22 +1,19 @@
 .ev {
-  padding: 0 clamp(1rem, 5vw, 3rem) clamp(4rem, 10vh, 7rem);
   background:
     radial-gradient(130% 60% at 50% 100%, #f7f1e4 0%, var(--parchment) 60%);
   text-align: center;
   overflow: hidden;
 }
 
+.ev-content {
+  padding: 0 clamp(1rem, 5vw, 3rem) clamp(4rem, 10vh, 7rem);
+}
+
 .ev-header-floral {
+  display: block;
   width: 100%;
-  height: clamp(140px, 20vw, 220px);
-  background-image: var(--ev-floral);
-  background-size: 100% auto;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  transform: scaleY(-1);
+  height: auto;
   margin-bottom: clamp(1.5rem, 4vh, 2.8rem);
-  mask-image: linear-gradient(to top, black 50%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to top, black 50%, transparent 100%);
 }
 
 .ev-head {

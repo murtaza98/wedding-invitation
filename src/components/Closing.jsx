@@ -13,15 +13,26 @@ export default function Closing({ initials, line, dua }) {
           <Ornament />
           <p className="cl-line">{line}</p>
           <p className="cl-dua">{dua}</p>
-          <p className="cl-credit">Envisioned by Sakina &nbsp;·&nbsp; Crafted by Murtaza</p>
         </Reveal>
       </div>
-      <img
-        className="cl-floral"
-        src={base + 'closing-bg.png'}
-        alt=""
-        aria-hidden="true"
-      />
+      <div className="cl-floral-wrap">
+        <img
+          className="cl-floral"
+          src={base + 'closing-bg.png'}
+          alt=""
+          aria-hidden="true"
+        />
+        <a
+          className="cl-credit"
+          href="https://murtaza98.github.io/wedding-invitation/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span className="cl-credit-line">Envisioned by Sakina</span>
+          <span className="cl-credit-sep" aria-hidden="true"> · </span>
+          <span className="cl-credit-line">Crafted by Murtaza</span>
+        </a>
+      </div>
     </footer>
   )
 }
