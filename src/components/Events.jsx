@@ -3,6 +3,7 @@ import './Events.css'
 
 const base = import.meta.env.BASE_URL
 const cardBg = `url(${base}invitation-bg.png)`
+const floralUrl = `url(${base}closing-bg.png)`
 
 // A slim arch motif — a nod to the masjid venues.
 function ArchMark() {
@@ -22,7 +23,7 @@ function ArchMark() {
 export default function Events({ title, events }) {
   return (
     <section className="ev" id="events">
-      <img className="ev-header-img" src={base + 'event-header.png'} alt="" aria-hidden="true" />
+      <div className="ev-header-floral" style={{ '--ev-floral': floralUrl }} aria-hidden="true" />
       <Reveal className="ev-head">
         <p className="eyebrow">Save these days</p>
         <h2 className="ev-title">{title}</h2>

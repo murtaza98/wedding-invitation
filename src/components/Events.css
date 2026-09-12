@@ -6,15 +6,17 @@
   overflow: hidden;
 }
 
-.ev-header-img {
-  display: block;
+.ev-header-floral {
   width: 100%;
-  max-height: 280px;
-  object-fit: cover;
-  object-position: center top;
-  margin-bottom: clamp(2rem, 5vh, 3.4rem);
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  height: clamp(140px, 20vw, 220px);
+  background-image: var(--ev-floral);
+  background-size: 100% auto;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  transform: scaleY(-1);
+  margin-bottom: clamp(1.5rem, 4vh, 2.8rem);
+  mask-image: linear-gradient(to top, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, black 50%, transparent 100%);
 }
 
 .ev-head {
