@@ -1,6 +1,6 @@
 .inv {
   padding: clamp(2rem, 6vh, 4rem) clamp(0.5rem, 2vw, 1rem);
-  background: linear-gradient(180deg, #ede0ce 0%, #e4d4be 100%);
+  background: var(--parchment);
   display: flex;
   justify-content: center;
 }

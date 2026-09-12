@@ -1,11 +1,10 @@
 .cl {
-  background-image: var(--cl-bg);
-  background-size: 100% auto;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-color: #efe7d7;
-  padding: clamp(3rem, 9vh, 6rem) 1.5rem clamp(8rem, 35vw, 18rem);
+  background: #efe7d7;
   text-align: center;
+}
+
+.cl-text {
+  padding: clamp(3rem, 9vh, 6rem) 1.5rem clamp(2.5rem, 6vh, 4rem);
 }
 
 .cl-inner {
@@ -15,6 +14,12 @@
   gap: 1rem;
   max-width: 40ch;
   margin: 0 auto;
+}
+
+.cl-floral {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .cl-mono {
