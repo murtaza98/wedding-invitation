@@ -12,8 +12,8 @@ export default function Closing({ initials, line, dua }) {
         <Ornament />
         <p className="cl-line">{line}</p>
         <p className="cl-dua">{dua}</p>
+        <p className="cl-credit">Envisioned by Sakina &nbsp;·&nbsp; Crafted by Murtaza</p>
       </Reveal>
-      <p className="cl-credit">Envisioned by Sakina &nbsp;·&nbsp; Crafted by Murtaza</p>
     </footer>
   )
 }

@@ -97,7 +97,7 @@ export const config = {
 
   closing: {
     line: 'We look forward to celebrating these blessed days with you.',
-    dua: 'Ameen.',
+    dua: 'Inshallah.',
   },
 }
 

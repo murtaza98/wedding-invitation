@@ -48,7 +48,6 @@
   background-image: var(--card-bg);
   background-size: 100% 100%;
   background-color: #fdf9f3;
-  box-shadow: 0 16px 36px rgba(70, 45, 25, 0.1);
   padding: clamp(2.8rem, 7vw, 3.6rem) clamp(1.6rem, 4vw, 2.2rem) clamp(5rem, 30%, 7rem);
   display: flex;
   flex-direction: column;
