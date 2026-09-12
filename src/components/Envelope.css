@@ -1,0 +1,138 @@
+.env-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  --img-offset-x: 32%;
+  /* JS overrides this background at runtime with exact gradient stop positions.
+     This fallback closely matches the image's right edge via a 4% neutral darkening
+     of the warm base: left strip shows warm cream; right strip ~4% cooler — within
+     3 RGB units of the actual envelope right-edge pixels. */
+  background:
+    linear-gradient(to right, transparent 32%, rgba(0, 0, 0, 0.04) 68%),
+    linear-gradient(to bottom, #EFE5D7, #EDE1D0);
+  transition: opacity 0.9s ease 0.4s;
+}
+
+/* No-video path: glow bloom plays, then stage fades away. */
+.env-stage.phase-opening:not(.has-video) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Video path: keep stage fully visible so the clip is actually watchable.
+   The stage fades out only after the video ends (phase-fading). */
+.env-stage.has-video.phase-opening {
+  opacity: 1;
+  pointer-events: none;
+}
+
+.env-stage.phase-fading {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.env {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  position: relative;
+  display: block;
+  width: 100vw;
+  height: 100svh;
+  cursor: pointer;
+}
+
+.env-img,
+.env-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Contain: show the whole envelope on every screen size.
+     The dark background fills the remaining space elegantly. */
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.env-img {
+  transition: transform 1.4s cubic-bezier(0.5, 0, 0.2, 1);
+  transform-origin: center;
+  /* Fade the image's right edge into the background over the last 1.5% of element
+     width (~22px at 1440px desktop), smoothing the complex floral texture at the seam. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black calc(100% - var(--img-offset-x, 32%) - 1.5%),
+    transparent calc(100% - var(--img-offset-x, 32%))
+  );
+  mask-image: linear-gradient(
+    to right,
+    black calc(100% - var(--img-offset-x, 32%) - 1.5%),
+    transparent calc(100% - var(--img-offset-x, 32%))
+  );
+}
+
+.phase-opening .env-img {
+  transform: scale(1.07);
+}
+
+/* The opening video sits above the still and fades in as it plays. */
+.env-video {
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+.has-video.phase-opening .env-video {
+  opacity: 1;
+}
+
+/* Warm glow bloom at the seal — the interim open when there's no clip yet. */
+.env-glow {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  width: 42%;
+  aspect-ratio: 1;
+  z-index: 2;
+  transform: translate(-50%, -50%) scale(0.4);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, rgba(255, 222, 154, 0.9) 0%, rgba(255, 214, 138, 0.36) 34%, rgba(255, 214, 138, 0) 68%);
+}
+
+.phase-opening:not(.has-video) .env-glow {
+  animation: env-bloom 1.4s ease forwards;
+}
+
+@keyframes env-bloom {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  45% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .env-img {
+    transition: none;
+  }
+  .env-glow {
+    animation: none;
+  }
+}

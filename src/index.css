@@ -1,0 +1,141 @@
+:root {
+  /* Palette */
+  --parchment: #f4eee1;
+  --parchment-2: #ece3d1;
+  --card: #fbf7ef;
+  --wine: #7a2233;
+  --wine-deep: #5e1926;
+  --gold: #b4924e;
+  --gold-soft: #cbb076;
+  --sage: #6e7a5a;
+  --sage-soft: #9aa585;
+  --blush: #c79aa6;
+  --ink: #2e2a24;
+  --ink-soft: #5f574a;
+
+  /* Type */
+  --script: 'Great Vibes', cursive;
+  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --serif-plain: 'Cormorant', 'Cormorant Garamond', serif;
+  --arabic: 'Amiri', serif;
+
+  color-scheme: light;
+  color: var(--ink);
+  background: var(--parchment);
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--parchment);
+  overflow-x: hidden;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Small letter-spaced label used for eyebrows and event names */
+.eyebrow {
+  font-family: var(--serif-plain);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+  font-size: 0.72rem;
+  color: var(--wine);
+  margin: 0;
+  padding-left: 0.42em;
+}
+
+/* Gold flourish divider between sections */
+.flourish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  color: var(--gold);
+  margin: 0 auto;
+}
+
+.flourish::before,
+.flourish::after {
+  content: '';
+  height: 1px;
+  width: clamp(48px, 12vw, 130px);
+  background: linear-gradient(
+    to var(--dir, right),
+    transparent,
+    var(--gold-soft)
+  );
+}
+
+.flourish::after {
+  --dir: left;
+}
+
+.flourish svg {
+  width: 26px;
+  height: 26px;
+  opacity: 0.85;
+}
+
+/* Scroll-reveal utility */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 1s ease, transform 1s ease;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+section {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

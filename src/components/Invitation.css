@@ -1,0 +1,124 @@
+.inv {
+  padding: clamp(2rem, 6vh, 4rem) clamp(0.5rem, 2vw, 1rem);
+  background: linear-gradient(180deg, #ede0ce 0%, #e4d4be 100%);
+  display: flex;
+  justify-content: center;
+}
+
+.inv-card {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 800px);
+  background-color: #fdf9f3;
+  box-shadow: 0 20px 60px rgba(70, 45, 25, 0.18);
+  /* max(200px, 54%) ensures the 40%-deep top florals are always cleared at
+     every card width: 54% of card width ≈ 40% × (4/3 × width) = floral depth. */
+  padding-top: max(200px, 54%);
+  padding-right: 22%;
+  padding-bottom: max(165px, 44%);
+  padding-left: 22%;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Top half: shows the card image from its own top edge, fades out before
+   the image's own bottom florals reach the centre of the card. */
+.inv-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60%;
+  background: url('/invitation-bg.png') top center / 100% auto no-repeat;
+  pointer-events: none;
+  z-index: -1;
+  mask-image: linear-gradient(to bottom, black 35%, transparent 62%);
+  -webkit-mask-image: linear-gradient(to bottom, black 35%, transparent 62%);
+}
+
+/* Bottom half: same image from its own bottom edge, fades out before the
+   image's own top florals reach the centre. */
+.inv-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60%;
+  background: url('/invitation-bg.png') bottom center / 100% auto no-repeat;
+  pointer-events: none;
+  z-index: -1;
+  mask-image: linear-gradient(to top, black 35%, transparent 62%);
+  -webkit-mask-image: linear-gradient(to top, black 35%, transparent 62%);
+}
+
+.inv-bismillah {
+  font-family: var(--arabic);
+  font-size: clamp(1.2rem, 4vw, 1.9rem);
+  color: var(--wine);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.inv-blessing {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(0.84rem, 2.2vw, 1.08rem);
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 0 auto;
+}
+
+.inv-blessing p + p {
+  margin-top: 0;
+}
+
+.inv-elders {
+  list-style: none;
+  padding: 0;
+  margin: 1.1rem auto 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(0.88rem, 2.4vw, 1.14rem);
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.inv-names {
+  margin-top: clamp(1.1rem, 3vh, 1.8rem);
+}
+
+.inv-name {
+  font-family: var(--script);
+  font-size: clamp(2.4rem, 10vw, 4.6rem);
+  line-height: 1.02;
+  color: var(--wine);
+}
+
+.inv-connector {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(0.9rem, 2.6vw, 1.3rem);
+  color: var(--ink-soft);
+  margin: 0.1rem 0;
+}
+
+.inv-lineage {
+  font-family: var(--serif-plain);
+  font-size: clamp(0.78rem, 2.1vw, 0.96rem);
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+}
+
+.inv-card .flourish {
+  margin: clamp(1.3rem, 3.5vh, 2rem) auto clamp(1rem, 2.5vh, 1.6rem);
+}
+
+.inv-regards-label {
+  color: var(--sage);
+  margin-bottom: 0.4rem;
+}
+
+.inv-regards-names {
+  font-family: var(--serif);
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  color: var(--ink);
+}

@@ -1,0 +1,42 @@
+.cl {
+  background-image: url('/closing-bg.png');
+  background-size: 100% auto;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-color: #efe7d7;
+  padding: clamp(3rem, 9vh, 6rem) 1.5rem clamp(8rem, 35vw, 18rem);
+  text-align: center;
+}
+
+.cl-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 40ch;
+  margin: 0 auto;
+}
+
+.cl-mono {
+  font-family: var(--script);
+  font-size: clamp(3rem, 12vw, 4.4rem);
+  line-height: 1;
+  color: var(--wine);
+}
+
+.cl-line {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 3.2vw, 1.4rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.cl-dua {
+  font-family: var(--serif-plain);
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  font-size: 0.72rem;
+  color: var(--gold);
+  padding-left: 0.4em;
+}

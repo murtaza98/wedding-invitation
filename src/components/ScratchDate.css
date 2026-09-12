@@ -1,0 +1,137 @@
+.scr {
+  padding: clamp(3rem, 9vh, 6rem) clamp(1rem, 5vw, 3rem);
+  background:
+    linear-gradient(180deg, var(--parchment) 0%, #efe7d7 100%);
+  text-align: center;
+}
+
+.scr-head {
+  margin-bottom: clamp(1.6rem, 4vh, 2.6rem);
+}
+
+.scr-title {
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(3rem, 11vw, 5rem);
+  line-height: 1;
+  color: var(--ink);
+  margin-top: 0.3rem;
+}
+
+.scr-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.scr-card {
+  position: relative;
+  width: min(90%, 460px);
+  min-height: clamp(220px, 40vh, 300px);
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid rgba(176, 141, 78, 0.4);
+  box-shadow: 0 18px 40px rgba(70, 45, 25, 0.12);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.scr-content {
+  padding: clamp(1.6rem, 5vw, 2.6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.scr-event {
+  color: var(--wine);
+  margin-bottom: 0.5rem;
+}
+
+.scr-weekday {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 3.4vw, 1.4rem);
+  color: var(--ink-soft);
+}
+
+.scr-date {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 8vw, 3.1rem);
+  line-height: 1.06;
+  color: var(--wine);
+  letter-spacing: 0.01em;
+}
+
+.scr-hijri {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: var(--sage);
+  margin-top: 0.4rem;
+}
+
+.scr-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  touch-action: none;
+  cursor: grab;
+  transition: opacity 0.6s ease;
+}
+
+.scr-canvas:active {
+  cursor: grabbing;
+}
+
+.scr-canvas.is-cleared {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scr-card.is-revealed .scr-content {
+  animation: scr-pop 0.6s ease both;
+}
+
+.scr-btn {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--wine);
+  font-family: var(--serif-plain);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.68rem;
+  padding: 0.7rem 1.5rem 0.7rem 1.8rem;
+  border-radius: 999px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.scr-btn:hover {
+  background: var(--wine);
+  color: #f6ecd8;
+  border-color: var(--wine);
+}
+
+@keyframes scr-pop {
+  from {
+    opacity: 0.4;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scr-card.is-revealed .scr-content {
+    animation: none;
+  }
+}
