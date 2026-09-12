@@ -48,7 +48,7 @@ export default function ScratchDate({ data }) {
     }
 
     const img = new Image()
-    img.src = '/scratch-foil.png'
+    img.src = import.meta.env.BASE_URL + 'scratch-foil.png'
     if (img.complete) {
       draw()
     } else {

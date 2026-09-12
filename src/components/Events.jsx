@@ -1,6 +1,9 @@
 import Reveal from './Reveal'
 import './Events.css'
 
+const base = import.meta.env.BASE_URL
+const cardBg = `url(${base}invitation-bg.png)`
+
 // A slim arch motif — a nod to the masjid venues.
 function ArchMark() {
   return (
@@ -19,7 +22,7 @@ function ArchMark() {
 export default function Events({ title, events }) {
   return (
     <section className="ev" id="events">
-      <img className="ev-header-img" src="/event-header.png" alt="" aria-hidden="true" />
+      <img className="ev-header-img" src={base + 'event-header.png'} alt="" aria-hidden="true" />
       <Reveal className="ev-head">
         <p className="eyebrow">Save these days</p>
         <h2 className="ev-title">{title}</h2>
@@ -27,7 +30,7 @@ export default function Events({ title, events }) {
 
       <div className="ev-grid">
         {events.map((event, i) => (
-          <Reveal key={event.name} delay={i * 120} className="ev-card">
+          <Reveal key={event.name} delay={i * 120} className="ev-card" style={{ '--card-bg': cardBg }}>
             <ArchMark />
             <p className="ev-name eyebrow">{event.name}</p>
             <p className="ev-venue">{event.venue}</p>

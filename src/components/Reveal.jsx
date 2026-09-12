@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 // Fades + lifts its children into view once, when scrolled near.
 // Respects prefers-reduced-motion via the .reveal CSS (no transform there).
-export default function Reveal({ children, as: Tag = 'div', delay = 0, className = '', ...rest }) {
+export default function Reveal({ children, as: Tag = 'div', delay = 0, className = '', style: styleProp, ...rest }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
 
@@ -26,7 +26,7 @@ export default function Reveal({ children, as: Tag = 'div', delay = 0, className
     <Tag
       ref={ref}
       className={`reveal ${visible ? 'is-visible' : ''} ${className}`.trim()}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={{ ...(delay ? { transitionDelay: `${delay}ms` } : {}), ...styleProp }}
       {...rest}
     >
       {children}

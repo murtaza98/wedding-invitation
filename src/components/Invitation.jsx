@@ -2,6 +2,8 @@ import Reveal from './Reveal'
 import Ornament from './Ornament'
 import './Invitation.css'
 
+const invBg = `url(${import.meta.env.BASE_URL}invitation-bg.png)`
+
 export default function Invitation({ data }) {
   const elders = [...data.elders]
   if (data.paternalGrandmother?.include) {
@@ -10,7 +12,7 @@ export default function Invitation({ data }) {
 
   return (
     <section className="inv" id="invitation">
-      <div className="inv-card">
+      <div className="inv-card" style={{ '--inv-bg': invBg }}>
         <Reveal>
           <p className="inv-bismillah" lang="ar" dir="rtl">
             {data.bismillah}

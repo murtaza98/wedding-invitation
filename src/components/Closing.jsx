@@ -2,9 +2,11 @@ import Reveal from './Reveal'
 import Ornament from './Ornament'
 import './Closing.css'
 
+const clBg = `url(${import.meta.env.BASE_URL}closing-bg.png)`
+
 export default function Closing({ initials, line, dua }) {
   return (
-    <footer className="cl">
+    <footer className="cl" style={{ '--cl-bg': clBg }}>
       <Reveal className="cl-inner">
         <span className="cl-mono">{initials}</span>
         <Ornament />

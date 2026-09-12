@@ -3,16 +3,15 @@
 //  Nothing below requires touching the React code to change names, dates, venues.
 // ─────────────────────────────────────────────────────────────────────────────
 
+const base = import.meta.env.BASE_URL
+
 export const config = {
   // Shown on the envelope seal and used for the browser tab.
   initials: 'M & S',
 
   envelope: {
-    // Gemini-generated closed envelope (with "TAP TO OPEN" baked in).
-    image: '/envelope.png',
-    // Drop the Gemini opening clip in public/ and set this to '/envelope-open.mp4';
-    // it will then play on tap before the site is revealed.
-    video: '/envelope-open.mp4',
+    image: base + 'envelope.png',
+    video: base + 'envelope-open.mp4',
   },
 
   // The arched-balcony opening screen.

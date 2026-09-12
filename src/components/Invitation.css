@@ -28,7 +28,7 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 60%;
-  background: url('/invitation-bg.png') top center / 100% auto no-repeat;
+  background: var(--inv-bg) top center / 100% auto no-repeat;
   pointer-events: none;
   z-index: -1;
   mask-image: linear-gradient(to bottom, black 35%, transparent 62%);
@@ -42,7 +42,7 @@
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 60%;
-  background: url('/invitation-bg.png') bottom center / 100% auto no-repeat;
+  background: var(--inv-bg) bottom center / 100% auto no-repeat;
   pointer-events: none;
   z-index: -1;
   mask-image: linear-gradient(to top, black 35%, transparent 62%);

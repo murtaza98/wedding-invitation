@@ -1,11 +1,13 @@
 import './Hero.css'
 
+const base = import.meta.env.BASE_URL
+
 export default function Hero({ names, tagline, place }) {
   return (
     <section className="hero">
       <img
         className="hero-bg"
-        src="/hero-bg.png"
+        src={base + 'hero-bg.png'}
         alt={`${names} — ${tagline}`}
       />
       <div className="hero-footer">
