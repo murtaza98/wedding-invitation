@@ -40,3 +40,13 @@
   color: var(--gold);
   padding-left: 0.4em;
 }
+
+.cl-credit {
+  margin-top: 2rem;
+  font-family: var(--serif-plain);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  opacity: 0.55;
+  text-align: center;
+}
