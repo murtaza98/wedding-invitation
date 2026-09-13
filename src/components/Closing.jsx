@@ -28,9 +28,9 @@ export default function Closing({ initials, line, dua }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="cl-credit-line">This website was envisioned by Sakina</span>
-          <span className="cl-credit-sep" aria-hidden="true"> &amp; </span>
-          <span className="cl-credit-line">created by Murtaza</span>
+          <span className="cl-credit-line">Envisioned by Sakina</span>
+          <span className="cl-credit-sep" aria-hidden="true"> · </span>
+          <span className="cl-credit-line">Crafted by Murtaza</span>
         </a>
       </div>
     </footer>
