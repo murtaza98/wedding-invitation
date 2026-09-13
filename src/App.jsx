@@ -7,6 +7,7 @@ import ScratchDate from './components/ScratchDate'
 import Events from './components/Events'
 import Closing from './components/Closing'
 import Loader from './components/Loader'
+import MusicToggle from './components/MusicToggle'
 
 const PRELOAD_IMAGES = [
   'envelope.png',
@@ -91,6 +92,8 @@ export default function App() {
       </main>
 
       {!opened && <Envelope config={config.envelope} onOpen={handleOpen} />}
+
+      <MusicToggle />
 
       {loaderVisible && (
         <Loader
