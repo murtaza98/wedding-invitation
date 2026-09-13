@@ -6,7 +6,7 @@
 }
 
 .ev-content {
-  padding: 0 clamp(1rem, 5vw, 3rem) clamp(4rem, 10vh, 7rem);
+  padding: clamp(4rem, 10vh, 7rem) clamp(1rem, 5vw, 3rem);
 }
 
 
