@@ -22,7 +22,7 @@ function ArchMark() {
 export default function Events({ title, events }) {
   return (
     <section className="ev" id="events">
-      <img className="ev-header-floral" src={base + 'event-header.png'} alt="" aria-hidden="true" />
+      <img className="ev-header-floral" src={base + 'final-back-panel-1.png'} alt="" aria-hidden="true" />
       <div className="ev-content">
         <Reveal className="ev-head">
           <p className="eyebrow">Save these days</p>
