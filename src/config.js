@@ -51,7 +51,7 @@ export const config = {
     brideLineage: 'D/O Murtaza & Duraiya Lalipurwala',
 
     regardsLabel: 'With best regards from',
-    regardsNames: 'Taher & Maleka Patrawala',
+    regardsNames: 'Sakina, Taher and Maleka Patrawala and Family',
   },
 
   // The single scratch-to-reveal panel (reveals the Nikah date).
