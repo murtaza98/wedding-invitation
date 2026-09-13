@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import config from './config'
 import Envelope from './components/Envelope'
 import Hero from './components/Hero'
@@ -7,7 +7,6 @@ import ScratchDate from './components/ScratchDate'
 import Events from './components/Events'
 import Closing from './components/Closing'
 import Loader from './components/Loader'
-import MusicToggle from './components/MusicToggle'
 
 const PRELOAD_IMAGES = [
   'envelope.png',
@@ -21,6 +20,7 @@ const TOTAL = PRELOAD_IMAGES.length + 1 // +1 for video
 
 export default function App() {
   const [opened, setOpened] = useState(false)
+  const audioRef = useRef(null)
   const [loaderVisible, setLoaderVisible] = useState(true)
   const [loadProgress, setLoadProgress] = useState(0)
   const [assetsReady, setAssetsReady] = useState(false)
@@ -71,6 +71,11 @@ export default function App() {
   const handleOpen = () => {
     setOpened(true)
     window.scrollTo({ top: 0, behavior: 'auto' })
+    const audio = audioRef.current
+    if (audio) {
+      audio.volume = 0.35
+      audio.play().catch(() => {})
+    }
   }
 
   return (
@@ -93,7 +98,7 @@ export default function App() {
 
       {!opened && <Envelope config={config.envelope} onOpen={handleOpen} />}
 
-      <MusicToggle />
+      <audio ref={audioRef} src={import.meta.env.BASE_URL + 'back_music.mp3'} loop preload="none" />
 
       {loaderVisible && (
         <Loader

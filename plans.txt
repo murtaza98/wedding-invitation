@@ -1,0 +1,338 @@
+================================================================================
+ MURTAZA WEDS SAKINA — WEDDING WEBSITE PLANS & GEMINI PROMPTS
+================================================================================
+ Project: /Users/murtazap/code/wedding-website
+ Stack:   Vite + React 19, served at http://localhost:5173
+ Config:  src/config.js  ← all content (names, dates, venues) lives here
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+ SECTIONS AT A GLANCE
+────────────────────────────────────────────────────────────────────────────────
+
+ 1. Envelope        ✅  DONE  — Gemini image live, background seam fixed
+ 2. Opening video   ✅  DONE  — final-opening-anim.mp4 + final-card-no-1/2.png live
+ 3. Hero            ✅  DONE  — hero-bg.png live (Mughal arch card)
+ 4. Invitation      ✅  DONE  — invitation-bg.png live, text overflow fixed (all screen sizes)
+ 5. ScratchDate     ⬜  TODO  — Currently CSS only, visual upgrade planned
+ 6. Events          ⬜  TODO  — Currently CSS only, visual upgrade planned
+ 7. Closing         ⬜  TODO  — Currently CSS only, visual upgrade planned
+
+
+────────────────────────────────────────────────────────────────────────────────
+ SECTION 1 — ENVELOPE  (DONE)
+────────────────────────────────────────────────────────────────────────────────
+
+ Status:  Live at public/envelope.png (1536×2532 px)
+          Background gradient pixel-matched; right-edge seam fixed via JS
+          Opening glow animation working; video slot ready
+
+ Files:
+   public/envelope.png                ← the Gemini image (cropped from 1536×2752)
+   src/components/Envelope.jsx        ← component + JS gradient positioning
+   src/components/Envelope.css        ← styles + right-edge mask fade
+   tools/crop-envelope.mjs            ← how the image was cropped
+   tools/analyze-envelope.mjs         ← sharp edge-pixel sampler
+   tools/shoot-both.mjs               ← dual Playwright screenshot (desktop + mobile)
+
+ Key technical notes:
+   - object-fit: contain — shows full envelope on every screen size
+   - JS useEffect calculates rendered image width, sets --img-offset-x and
+     overrides stage.style.background with exact gradient stops
+   - Right overlay: rgba(0,0,0,0.04) — 4% neutral darkening of warm base,
+     matches right-edge pixels within 3 RGB units
+   - CSS mask-image fades the last 1.5% of image width at the right seam
+   - Image natural size: 1536×2532, ratio 0.607 (taller than 16:9)
+   - Left edge:  top #EFE5D7 → bottom #EDE1D0  (warm cream)
+   - Right edge: top #E8DCCD → bottom #E2D5C5  (slightly cooler)
+
+ Prompt A — used to generate the envelope image:
+ ───────────────────────────────────────────────
+ A luxury wedding invitation envelope, photographed flat lay on a solid cream
+ background. The envelope is made of thick ivory cotton paper with deeply
+ embossed botanical vines, flowers, and leaves on both side panels and the
+ triangular back flap. In the center of the back, a rich burgundy/crimson wax
+ seal stamped with the initials "M & S" in an elegant serif monogram. Below
+ the seal, small gold foil text reads "TAP TO OPEN". Soft directional studio
+ lighting from the upper left. Photorealistic, ultra-high detail. No text
+ other than the monogram and "TAP TO OPEN". Portrait orientation, 9:16.5 ratio.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ SECTION 2 — OPENING VIDEO  (TODO)
+────────────────────────────────────────────────────────────────────────────────
+
+ Goal:    A 10-second clip that plays when the user taps the envelope.
+          The envelope opens, reveals a glowing interior, and the invitation
+          card rises from inside before the site fades in.
+
+ Integration:
+   1. Generate the card image using Prompt B1 below
+   2. Generate the video using Prompt B2 below, with TWO image inputs:
+        Input 1: public/envelope.png  (the closed envelope)
+        Input 2: the card image from step 1
+   3. Save the video as public/envelope-open.mp4
+   4. In src/config.js, change:
+        video: null
+      to:
+        video: '/envelope-open.mp4'
+   5. No code changes needed — the video slot is already wired in Envelope.jsx
+
+ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+ Prompt B1 — Card image (Gemini text-to-image, generate FIRST):
+ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+
+ A luxury wedding announcement card, portrait orientation 9:16. The card is
+ a romantic painterly illustration — an ornate Mughal marble archway with twin
+ carved stone columns, viewed from inside looking outward. The columns are
+ adorned with climbing white jasmine and soft green vines. Through the arch:
+ a soft golden-haze sky with gentle rolling hills and a calm serene water body
+ in the distance — dreamy and misty, rendered in a warm watercolour/oil
+ painting style.
+
+ To bring the scene to life: a small loose flock of 5–7 white birds (doves or
+ small songbirds) flies gently across the golden sky visible through the arch —
+ distant enough to feel atmospheric, not dominant. Additionally, soft white
+ jasmine and rose petals drift and fall naturally through the scene — some
+ floating near the arch columns in the foreground, some caught mid-air within
+ the arch opening, a few resting on the ground below. The petals should feel
+ gentle and unhurried, as if carried by a soft breeze.
+
+ The bottom third fades softly and gradually into warm cream-white.
+
+ In the center of the image, in elegant typography:
+   - First line, larger italic calligraphy script: Murtaza & Sakina
+   - Second line, smaller light serif beneath it: are getting married!
+
+ The text sits in the open space within the arch, not crowding the columns
+ or landscape.
+
+ At the very bottom of the card, small and understated: a delicate upward
+ chevron (^) with the words "Scroll up" in light, airy lettering.
+
+ A thin gold border frame runs around the entire edge of the card. Palette:
+ soft ivory, champagne, cream, muted sage green — warm and romantic. Style:
+ painterly illustration, oil painting or high-quality watercolour quality.
+ No photography. No people. No other text.
+
+ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+ Prompt B2 — Video (Gemini image-to-video, TWO image inputs):
+   Input 1: envelope.png — the closed envelope
+   Input 2: card image generated from Prompt B1 above
+ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+
+ Two images are provided as input: (1) the closed envelope, (2) the invitation
+ card. The video begins on the closed envelope and ends with the card fully
+ revealed. Use both input images as the visual anchors for their respective
+ moments in the animation.
+
+ Animation sequence — 10 seconds total, portrait 9:16:
+
+ 0–1 s — Hold.
+ The closed envelope is viewed from directly overhead, centered in the
+ portrait frame with cream background visible at the edges. Subtle ambient
+ light plays softly across the embossed surface.
+
+ 1–2 s — Seal dissolves.
+ The wax seal cracks gently along its vertical center axis. The two halves
+ slowly and naturally drift apart and fade away — a soft, gradual dissolve.
+ No sudden movement, no momentum.
+
+ 2–4 s — Top flap opens + camera begins moving.
+ The top triangular flap rotates upward along its hinge until fully open at
+ roughly 120°. IMPORTANT: the inner face of the top flap must be the same
+ cream-ivory color as the envelope exterior — NOT golden, NOT a different
+ color. The golden glow comes from inside the body of the envelope, not from
+ the flap itself. Simultaneously, the camera begins a slow continuous move:
+ a gentle dolly forward combined with a gradual tilt, shifting perspective
+ from directly overhead toward a 30° angled view.
+
+ 4–5.5 s — Side and bottom flaps open.
+ The left, right, and bottom flaps swing outward simultaneously like shutters
+ — left hinges left, right hinges right, bottom folds downward. Camera
+ continues its dolly-in and tilt to roughly 35–40°. The fully open interior
+ reveals a flat, solid champagne-gold surface. IMPORTANT: this interior must
+ NOT resemble another envelope — no folded paper edges, no inner liner
+ envelope shape — just one clean flat glowing base. Golden sparkle particles
+ and soft light rays drift upward gently.
+
+ 5.5–9 s — Card emerges.
+ The invitation card (use the provided card image exactly — Mughal arch
+ illustration, "Murtaza & Sakina / are getting married!", birds, petals,
+ gold border) rises slowly and gracefully from inside the open envelope.
+ The card lifts as though carried by the warm light beneath it — smooth,
+ natural, no bounce or momentum. It fades in gently as it rises. The camera
+ pans upward softly to follow the card, keeping it centered in the portrait
+ frame. The card settles into place with a calm, gentle ease.
+
+ 9–10 s — Final hold.
+ Camera has arrived at approximately 40–45° angled perspective, close in.
+ The card fills the center of the portrait frame, the open envelope sits
+ below it. Hold on this composed final shot.
+
+ Camera summary: one continuous smooth movement throughout — slow dolly
+ forward combined with a gradual tilt from 0° (overhead) to 45° (angled).
+ No side-to-side movement. No sudden changes. All motion is unhurried and
+ cinematic.
+
+ Style: photorealistic envelope, painterly card. Soft warm studio lighting.
+ Luxury wedding aesthetic. No audio — silent video only.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ SECTION 3 — HERO  (TODO)
+────────────────────────────────────────────────────────────────────────────────
+
+ Goal:    Replace the current CSS/SVG arched-balcony hero with a
+          Gemini-generated background image. The text overlay
+          ("Murtaza & Sakina / are getting married! / Mumbai · March 2027")
+          stays as React text on top.
+
+ Integration:
+   1. Generate the image with Prompt C below
+   2. Save as public/hero-bg.jpg (or .png)
+   3. In Hero.css, replace the current background with:
+        background-image: url('/hero-bg.jpg');
+        background-size: cover;
+        background-position: center top;
+   4. Adjust text color/shadow if needed for contrast
+
+ Prompt C — Gemini hero background:
+ ─────────────────────────────────────
+ An ultra-wide cinematic photograph of an ornate Mughal or Indo-Islamic
+ archway, photographed from below looking up toward a warm twilight sky.
+ The arch is carved from white marble with intricate floral jali lattice
+ work and gold inlay. Soft fairy lights and hanging jasmine garlands frame
+ the arch. A warm amber and rose glow fills the sky beyond the arch. The
+ bottom third of the image is intentionally dark/shadowed so that text can
+ sit there legibly. Landscape orientation 16:9. No people. Photorealistic,
+ editorial wedding photography style.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ SECTION 4 — INVITATION  (TODO)
+────────────────────────────────────────────────────────────────────────────────
+
+ Goal:    The formal invitation text panel (Bismillah, blessing lines, elders,
+          "Murtaza weds Sakina", lineage, regards) currently renders in
+          plain CSS. Options for visual upgrade:
+
+   Option A — Decorative border background:
+     Generate a Gemini parchment/paper texture with ornamental borders
+     (floral corner motifs, thin gold lines) as a background image for the
+     invitation card.
+
+   Option B — Letterpress card:
+     Render the invitation as a letterpress-style card with subtle embossing,
+     positioned over a soft fabric/linen background.
+
+ Prompt D — Invitation background texture:
+ ──────────────────────────────────────────
+ A flat-lay photograph of a single luxury invitation card on ivory cotton
+ paper. The card has intricate gold-foil corner ornaments with botanical
+ motifs (roses, jasmine, leaves). The interior is blank/empty — no text —
+ with just a faint cream-on-cream floral pattern in the center. Thin gold
+ border line. Soft diffused overhead lighting. Portrait orientation 3:4.
+ Photorealistic.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ SECTION 5 — SCRATCH DATE  (TODO)
+────────────────────────────────────────────────────────────────────────────────
+
+ Goal:    The scratch-to-reveal panel that hides the Nikah date currently
+          uses a CSS foil effect. Options:
+
+   Option A — Gemini foil texture:
+     Replace the CSS gradient foil with a generated metallic gold foil
+     texture image used as the scratchable surface.
+
+   Option B — Decorative reveal card:
+     After scratching, show the revealed date over a decorative background
+     (e.g., a pressed-flower or watercolour panel).
+
+ Prompt E — Gold foil scratch surface:
+ ──────────────────────────────────────
+ A close-up macro photograph of a shimmering gold metallic foil surface.
+ The foil is smooth with very subtle light-catching micro-ridges. Warm
+ gold tones (#C9A84C range). The surface fills the entire frame. No
+ text, no objects — pure gold foil texture. Square crop. Photorealistic.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ SECTION 6 — EVENTS  (TODO)
+────────────────────────────────────────────────────────────────────────────────
+
+ Goal:    Three event cards (Nikah, Vehwaan Reception, Walima) currently
+          rendered in CSS. Options for visual upgrade:
+
+   Option A — Venue photography:
+     Generate an atmospheric image for each venue (mosque exterior at golden
+     hour, reception hall, etc.) as card background.
+
+   Option B — Illustrated icons:
+     Add a Gemini-generated decorative illustration (crescent moon, lantern,
+     flower wreath) per event type as an icon/header.
+
+ Prompt F — Decorative event card header (mosque / evening):
+ ─────────────────────────────────────────────────────────────
+ A painterly watercolour illustration of a classic Indian mosque silhouette
+ at dusk, with a crescent moon and one star in a soft indigo sky. Warm amber
+ lights glow from the arched windows. Jasmine flowers in the foreground.
+ Wide landscape format 16:5. Soft edges blending to white/cream at the bottom.
+ No text. Elegant, romantic, wedding-appropriate.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ SECTION 7 — CLOSING  (TODO)
+────────────────────────────────────────────────────────────────────────────────
+
+ Goal:    The closing screen ("We look forward to celebrating…" + "Ameen.")
+          currently uses a plain CSS gradient. Options:
+
+   Option A — Floral footer illustration:
+     A full-width illustrated floral arrangement (roses, jasmine, greenery)
+     at the bottom of the page that bleeds to the edges.
+
+   Option B — Ambient scene loop:
+     A short looping video (petals falling, candles flickering) as the
+     closing background.
+
+ Prompt G — Closing floral arrangement:
+ ────────────────────────────────────────
+ A top-down flat-lay photograph of a loose romantic floral arrangement:
+ ivory garden roses, white jasmine, blush peonies, and eucalyptus sprigs
+ on a warm cream background. The arrangement is spread naturally across
+ the full frame with open space in the upper center for text overlay.
+ Ultra-high detail. Landscape orientation 16:9. Photorealistic.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ WORKFLOW FOR ADDING ANY GEMINI IMAGE
+────────────────────────────────────────────────────────────────────────────────
+
+ 1. Generate in Gemini (or Imagen) using the prompt above
+ 2. Save to public/<filename>.png or public/<filename>.jpg
+ 3. Update src/config.js or the relevant CSS to reference the file
+ 4. Run:  node tools/shoot-both.mjs
+          → /tmp/envelope-desktop.png  (1440×900)
+          → /tmp/envelope-mobile.png   (430×932)
+ 5. Review screenshots; adjust CSS if needed
+
+
+────────────────────────────────────────────────────────────────────────────────
+ TECHNICAL QUICK-REFERENCE
+────────────────────────────────────────────────────────────────────────────────
+
+ Dev server:     npm run dev  →  http://localhost:5173
+ Screenshot:     node tools/shoot-both.mjs
+ Edge sampler:   node tools/analyze-envelope.mjs
+ Image crop:     node tools/crop-envelope.mjs
+
+ Envelope image dimensions: 1536×2532 (original was 1536×2752, bottom 220px blank)
+ Image aspect ratio: 0.6067  (portrait, narrower than phone screen)
+ Phone (iPhone 15 Pro Max): 430×932 → image fills full width, ~112px strips top/bottom
+ Desktop (1440×900):        image fills full height, ~447px strips each side (~31%)
+
+================================================================================

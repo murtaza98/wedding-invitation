@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(cp *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(npm pkg *)",
+      "Bash(npm i *)",
+      "Bash(npx playwright *)",
+      "Bash(node tools/inspect-ref.mjs)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(round\\(i['rect']['x']\\),round\\(i['rect']['y']\\),round\\(i['rect']['width']\\),'x',round\\(i['rect']['height']\\), '|', i['cls'][:40], '|', i['src'].split\\('/'\\)[-1][:40]\\) for i in d['imgs']]\")",
+      "Bash(python3 -c ' *)",
+      "Bash(node tools/shoot-mine.mjs)",
+      "Bash(mdfind -onlyin ~ \"kMDItemFSName == '*Screen Recording*'\")",
+      "Bash(mdls -name kMDItemDurationSeconds -name kMDItemPixelWidth -name kMDItemPixelHeight -name kMDItemCodecs \"/Users/murtazap/Downloads/Screen Recording 2026-09-12 at 1.04.11 PM.mov\")",
+      "Bash(node *)",
+      "Bash(npx esbuild *)",
+      "Bash(npx oxlint *)",
+      "Bash(awk '{print $6, $7}')",
+      "Bash(swift tools/extract-frames.swift /Users/murtazap/Downloads/Gemini_generated_opening_animat.mp4 tools/gem 12)",
+      "Read(//Users/murtazap/Downloads/**)",
+      "Bash(cp /Users/murtazap/Downloads/Gemini_Generated_Image_xtxr0sxtxr0sxtxr.png /Users/murtazap/code/wedding-website/public/envelope.png)",
+      "Bash(ffmpeg -i \"/Users/murtazap/Downloads/Gemini_generated_opening_animat.mp4\" -vf \"fps=1\" /tmp/frame_%02d.png -y)",
+      "Bash(brew install *)",
+      "Bash(/opt/homebrew/bin/ffmpeg -i \"/Users/murtazap/Downloads/Gemini_generated_opening_animat.mp4\" -vf \"fps=2\" /tmp/vframe_%03d.png -y)",
+      "Bash(/opt/homebrew/bin/ffmpeg -i \"/Users/murtazap/Downloads/Envelope_animation_and_card_opening_20260912184128.mp4\" -vf \"fps=2\" /tmp/new_%03d.png -y)",
+      "Bash(/opt/homebrew/bin/ffmpeg -i \"/Users/murtazap/Downloads/Gemini_generated_opening_animat.mp4\" -vf \"fps=2\" /tmp/orig_%03d.png -y)",
+      "Bash(cp ~/Downloads/final_opening_anim.mp4 /Users/murtazap/code/wedding-website/public/envelope-open.mp4)",
+      "Bash(cp ~/Downloads/final-card-no-1.png /Users/murtazap/code/wedding-website/public/hero-bg.png)",
+      "Bash(git init *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(gh auth *)",
+      "Bash(gh api *)"
+    ]
+  }
+}
