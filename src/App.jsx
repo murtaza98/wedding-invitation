@@ -7,6 +7,7 @@ import ScratchDate from './components/ScratchDate'
 import Events from './components/Events'
 import Closing from './components/Closing'
 import Loader from './components/Loader'
+import MusicBtn from './components/MusicBtn'
 
 const PRELOAD_IMAGES = [
   'envelope.png',
@@ -102,6 +103,7 @@ export default function App() {
       {!opened && <Envelope config={config.envelope} onOpen={handleOpen} onStart={handleAnimationStart} />}
 
       <audio ref={audioRef} src={import.meta.env.BASE_URL + 'back_music.mp3'} loop preload="none" />
+      {opened && <MusicBtn audioRef={audioRef} />}
 
       {loaderVisible && (
         <Loader
