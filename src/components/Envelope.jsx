@@ -6,7 +6,7 @@ const IMG_W = 1536, IMG_H = 2532
 // The closed envelope is a Gemini-generated image (rich embossed paper + wax
 // seal). Tapping it plays the opening — the Gemini clip if one is provided,
 // otherwise a soft glow-and-fade — then reveals the site behind.
-export default function Envelope({ config, onOpen }) {
+export default function Envelope({ config, onOpen, onStart }) {
   const [phase, setPhase] = useState('idle') // idle → opening → fading → done
   const videoRef = useRef(null)
   const stageRef = useRef(null)
@@ -25,6 +25,7 @@ export default function Envelope({ config, onOpen }) {
       return
     }
     setPhase('opening')
+    onStart?.()
     if (video && videoRef.current) {
       const v = videoRef.current
       v.play().catch(() => {})

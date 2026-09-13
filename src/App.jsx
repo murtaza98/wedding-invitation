@@ -68,14 +68,17 @@ export default function App() {
     return () => document.body.classList.remove('is-locked')
   }, [opened])
 
-  const handleOpen = () => {
-    setOpened(true)
-    window.scrollTo({ top: 0, behavior: 'auto' })
+  const handleAnimationStart = useCallback(() => {
     const audio = audioRef.current
     if (audio) {
       audio.volume = 0.35
       audio.play().catch(() => {})
     }
+  }, [])
+
+  const handleOpen = () => {
+    setOpened(true)
+    window.scrollTo({ top: 0, behavior: 'auto' })
   }
 
   return (
@@ -96,7 +99,7 @@ export default function App() {
         />
       </main>
 
-      {!opened && <Envelope config={config.envelope} onOpen={handleOpen} />}
+      {!opened && <Envelope config={config.envelope} onOpen={handleOpen} onStart={handleAnimationStart} />}
 
       <audio ref={audioRef} src={import.meta.env.BASE_URL + 'back_music.mp3'} loop preload="none" />
 
