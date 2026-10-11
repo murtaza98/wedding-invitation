@@ -15,7 +15,7 @@ export default function Loader({ progress, loaded, onDone }) {
 
   return (
     <div ref={ref} className="ldr" aria-live="polite" aria-label="Loading">
-      <span className="ldr-mono">M &amp; S</span>
+      <span className="ldr-mono">S &amp; M</span>
       <div className="ldr-track" role="progressbar" aria-valuenow={Math.round(progress * 100)}>
         <div className="ldr-bar" style={{ width: `${progress * 100}%` }} />
       </div>
