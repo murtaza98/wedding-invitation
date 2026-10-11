@@ -38,9 +38,9 @@ export default function Invitation({ data }) {
         <Reveal delay={120}>
           <div className="inv-names">
             <p className="inv-name">{data.bride}</p>
-            <p className="inv-lineage">{data.brideLineage}</p>
             <p className="inv-connector">{data.connector}</p>
             <p className="inv-name">{data.groom}</p>
+            {data.groomLineage && <p className="inv-lineage">{data.groomLineage}</p>}
           </div>
         </Reveal>
 

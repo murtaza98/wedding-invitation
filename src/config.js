@@ -35,7 +35,7 @@ export const config = {
     // One entry per line in the elders block.
     elders: [
       'Late Ibrahim Patrawala',
-      'Late Fidahussain & Mehfuza Vakharia',
+      'Taher and Zainab Lalipurwala & Bilkis Madraswala',
     ],
 
     // Paternal grandmother — set include:true to add her to the elders block.
@@ -46,12 +46,12 @@ export const config = {
     },
 
     groom: 'Murtaza',
+    groomLineage: 'S/O Taher and Maleka Patrawala',
     connector: 'weds',
     bride: 'Sakina',
-    brideLineage: 'D/O Murtaza & Duraiya Lalipurwala',
 
     regardsLabel: 'With best regards from',
-    regardsNames: 'Sakina, Taher and Maleka Patrawala and Family',
+    regardsNames: 'Durriya & Murtaza Lalipurwala and Family',
   },
 
   // The single scratch-to-reveal panel (reveals the Nikah date).
