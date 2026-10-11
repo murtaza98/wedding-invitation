@@ -54,21 +54,52 @@ export const config = {
     regardsNames: 'Durriya & Murtaza Lalipurwala and Family',
   },
 
-  // The single scratch-to-reveal panel (reveals the Nikah date).
+  // The scratch-to-reveal panel (reveals all four celebration dates).
   scratch: {
     eyebrow: 'Scratch to reveal',
-    title: 'The Date',
+    title: 'The Dates',
     foilLabel: 'Scratch here',
-    revealButton: 'Reveal the date',
-    event: 'Nikah',
-    weekday: 'Friday',
-    date: '26 March 2027',
-    hijri: '19th Shawwal-ul-Mukarram',
+    revealButton: 'Reveal the dates',
+    dates: [
+      {
+        event: 'Mehandi',
+        weekday: 'Thursday',
+        date: '25 March 2027',
+        hijri: '18th Shawwal-ul-Mukarram',
+      },
+      {
+        event: 'Nikah',
+        weekday: 'Friday',
+        date: '26 March 2027',
+        hijri: '19th Shawwal-ul-Mukarram',
+      },
+      {
+        event: 'Wedding Reception',
+        weekday: 'Saturday',
+        date: '27 March 2027',
+        hijri: '20th Shawwal-ul-Mukarram',
+        featured: true,
+      },
+      {
+        event: 'Walima',
+        weekday: 'Sunday',
+        date: '28 March 2027',
+        hijri: '21st Shawwal-ul-Mukarram',
+      },
+    ],
   },
 
-  // The three celebrations.
+  // The four celebrations.
   eventsTitle: 'The Celebrations',
   events: [
+    {
+      name: 'Mehandi',
+      venue: 'Bandra',
+      area: 'Mumbai',
+      date: '25 March 2027',
+      time: '7:00 PM',
+      hijri: '18th Shawwal-ul-Mukarram',
+    },
     {
       name: 'Nikah',
       venue: 'Zaini Masjid',

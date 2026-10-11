@@ -27,8 +27,7 @@
 
 .scr-card {
   position: relative;
-  width: min(90%, 460px);
-  min-height: clamp(220px, 40vh, 300px);
+  width: min(95%, 560px);
   border-radius: 18px;
   background: var(--card);
   border: 1px solid rgba(176, 141, 78, 0.4);
@@ -39,40 +38,62 @@
 }
 
 .scr-content {
-  padding: clamp(1.6rem, 5vw, 2.6rem);
+  width: 100%;
+}
+
+.scr-dates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+.scr-date-item {
+  padding: clamp(1rem, 3.5vw, 1.6rem) clamp(0.7rem, 2.5vw, 1.2rem);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.18rem;
+  border: 0.5px solid rgba(176, 141, 78, 0.18);
+}
+
+.scr-date-item.is-featured {
+  background: rgba(176, 141, 78, 0.07);
+  border-color: rgba(176, 141, 78, 0.45);
+  outline: 1px solid rgba(176, 141, 78, 0.3);
+  outline-offset: -3px;
 }
 
 .scr-event {
   color: var(--wine);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .scr-weekday {
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(1.1rem, 3.4vw, 1.4rem);
+  font-size: clamp(0.78rem, 2.4vw, 1rem);
   color: var(--ink-soft);
 }
 
 .scr-date {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: clamp(2rem, 8vw, 3.1rem);
-  line-height: 1.06;
+  font-size: clamp(1rem, 3.8vw, 1.7rem);
+  line-height: 1.1;
   color: var(--wine);
   letter-spacing: 0.01em;
+}
+
+.scr-date-item.is-featured .scr-date {
+  font-size: clamp(1.1rem, 4.2vw, 1.9rem);
 }
 
 .scr-hijri {
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-size: clamp(0.65rem, 1.9vw, 0.88rem);
   color: var(--sage);
-  margin-top: 0.4rem;
+  margin-top: 0.15rem;
 }
 
 .scr-canvas {
