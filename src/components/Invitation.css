@@ -10,12 +10,10 @@
   isolation: isolate;
   width: min(100%, 800px);
   background-color: #fdf9f3;
-  /* max(200px, 54%) ensures the 40%-deep top florals are always cleared at
-     every card width: 54% of card width ≈ 40% × (4/3 × width) = floral depth. */
-  padding-top: max(200px, 54%);
-  padding-right: 22%;
-  padding-bottom: max(165px, 44%);
-  padding-left: 22%;
+  padding-top: clamp(185px, 34%, 285px);
+  padding-right: clamp(80px, 18%, 160px);
+  padding-bottom: clamp(165px, 30%, 250px);
+  padding-left: clamp(80px, 18%, 160px);
   text-align: center;
   overflow: hidden;
 }
