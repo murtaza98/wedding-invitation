@@ -11,13 +11,12 @@ import MusicBtn from './components/MusicBtn'
 
 const PRELOAD_IMAGES = [
   'envelope.png',
-  'hero-bg.png',
   'invitation-bg.png',
   'scratch-foil.png',
-  'event-header.png',
   'closing-bg.png',
 ]
-const TOTAL = PRELOAD_IMAGES.length + 1 // +1 for video
+const PRELOAD_VIDEOS = ['envelope-open.mp4', 'hero-bg.mp4']
+const TOTAL = PRELOAD_IMAGES.length + PRELOAD_VIDEOS.length
 
 export default function App() {
   const [opened, setOpened] = useState(false)
@@ -44,17 +43,19 @@ export default function App() {
         }),
     )
 
-    const videoPromise = new Promise(resolve => {
-      const v = document.createElement('video')
-      v.onloadedmetadata = () => { tick(); resolve() }
-      v.onerror = () => { tick(); resolve() }
-      v.preload = 'metadata'
-      v.src = base + 'envelope-open.mp4'
-    })
+    const videoPromises = PRELOAD_VIDEOS.map(name =>
+      new Promise(resolve => {
+        const v = document.createElement('video')
+        v.onloadedmetadata = () => { tick(); resolve() }
+        v.onerror = () => { tick(); resolve() }
+        v.preload = 'metadata'
+        v.src = base + name
+      })
+    )
 
     const fallback = setTimeout(() => setAssetsReady(true), 12000)
 
-    Promise.all([...imgPromises, videoPromise]).then(() =>
+    Promise.all([...imgPromises, ...videoPromises]).then(() =>
       setAssetsReady(true),
     )
 

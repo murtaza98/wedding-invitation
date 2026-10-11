@@ -7,7 +7,7 @@ const base = import.meta.env.BASE_URL
 
 export const config = {
   // Shown on the envelope seal and used for the browser tab.
-  initials: 'M & S',
+  initials: 'S & M',
 
   envelope: {
     image: base + 'envelope.png',
@@ -16,7 +16,7 @@ export const config = {
 
   // The arched-balcony opening screen.
   hero: {
-    names: 'Murtaza & Sakina',
+    names: 'Sakina & Murtaza',
     tagline: 'are getting married!',
     place: '',
   },

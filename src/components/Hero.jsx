@@ -5,10 +5,15 @@ const base = import.meta.env.BASE_URL
 export default function Hero({ names, tagline, place }) {
   return (
     <section className="hero">
-      <img
+      <video
         className="hero-bg"
-        src={base + 'hero-bg.png'}
-        alt={`${names} — ${tagline}`}
+        src={base + 'hero-bg.mp4'}
+        poster={base + 'hero-bg.png'}
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-label={`${names} — ${tagline}`}
       />
       <div className="hero-footer">
         {place && <p className="hero-place">{place}</p>}
