@@ -132,7 +132,7 @@
 .env-hint-hand {
   position: absolute;
   left: 51%;
-  top: 46%;
+  top: 50%;
   transform: translateX(-50%);
   pointer-events: none;
   z-index: 5;
@@ -142,7 +142,7 @@
 
 .env-hint-hand img {
   display: block;
-  width: clamp(34px, 5vw, 46px);
+  width: clamp(26px, 3.5vw, 34px);
   height: auto;
 }
 
