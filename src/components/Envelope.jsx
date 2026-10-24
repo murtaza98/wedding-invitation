@@ -9,15 +9,21 @@ const IMG_W = 1536, IMG_H = 2532
 // otherwise a soft glow-and-fade — then reveals the site behind.
 export default function Envelope({ config, onOpen, onStart }) {
   const [phase, setPhase] = useState('idle') // idle → opening → fading → done
-  const [showHint, setShowHint] = useState(false)
-  const videoRef = useRef(null)
-  const stageRef = useRef(null)
-  const hintTimerRef = useRef(null)
+  const [showRings, setShowRings] = useState(false)
+  const [showHand,  setShowHand]  = useState(false)
+  const videoRef     = useRef(null)
+  const stageRef     = useRef(null)
+  const ringsTimerRef = useRef(null)
+  const handTimerRef  = useRef(null)
   const { image, video } = config
 
   useEffect(() => {
-    hintTimerRef.current = setTimeout(() => setShowHint(true), 1500)
-    return () => clearTimeout(hintTimerRef.current)
+    ringsTimerRef.current = setTimeout(() => setShowRings(true), 10000)
+    handTimerRef.current  = setTimeout(() => setShowHand(true),  20000)
+    return () => {
+      clearTimeout(ringsTimerRef.current)
+      clearTimeout(handTimerRef.current)
+    }
   }, [])
 
   const finish = () => {
@@ -27,8 +33,10 @@ export default function Envelope({ config, onOpen, onStart }) {
 
   const open = () => {
     if (phase !== 'idle') return
-    clearTimeout(hintTimerRef.current)
-    setShowHint(false)
+    clearTimeout(ringsTimerRef.current)
+    clearTimeout(handTimerRef.current)
+    setShowRings(false)
+    setShowHand(false)
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     if (reduce) {
       finish()
@@ -124,14 +132,16 @@ export default function Envelope({ config, onOpen, onStart }) {
           />
         )}
         <span className="env-glow" aria-hidden="true" />
-        {showHint && phase === 'idle' && (
+        {showRings && phase === 'idle' && (
           <>
             <span className="env-hint-ring env-hint-ring-1" aria-hidden="true" />
             <span className="env-hint-ring env-hint-ring-2" aria-hidden="true" />
-            <span className="env-hint-hand" aria-hidden="true">
-              <img src={base + 'scratch-hand.png'} alt="" draggable="false" />
-            </span>
           </>
+        )}
+        {showHand && phase === 'idle' && (
+          <span className="env-hint-hand" aria-hidden="true">
+            <img src={base + 'scratch-hand.png'} alt="" draggable="false" />
+          </span>
         )}
       </button>
     </div>
