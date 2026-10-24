@@ -15,16 +15,16 @@ export default function Hero({ names, tagline, place }) {
         playsInline
         aria-label={`${names} — ${tagline}`}
       />
+      <div className="hero-hand-wrap" aria-hidden="true">
+        <img
+          src={base + 'scratch-hand.png'}
+          className="hero-hand-img"
+          alt=""
+          draggable="false"
+        />
+      </div>
       <div className="hero-footer">
         {place && <p className="hero-place">{place}</p>}
-        <div className="hero-scroll" aria-hidden="true">
-          <img
-            src={base + 'scratch-hand.png'}
-            className="hero-hand-img"
-            alt=""
-            draggable="false"
-          />
-        </div>
       </div>
     </section>
   )

@@ -86,10 +86,8 @@ export default function ScratchDate({ data }) {
     // Block-centered text
     const titleSz = Math.max(18, Math.round(h * 0.16))
     const hintSz  = Math.max(11, Math.round(h * 0.076))
-    const gap     = Math.round(h * 0.08)
-    const totalH  = titleSz + gap + hintSz
-    const titleY  = (h - totalH) / 2 + titleSz / 2
-    const hintY   = titleY + titleSz / 2 + gap + hintSz / 2
+    const titleY  = h / 2
+    const hintY   = h - Math.round(h * 0.13)
 
     ctx.textAlign    = 'center'
     ctx.textBaseline = 'middle'
@@ -236,9 +234,6 @@ export default function ScratchDate({ data }) {
         )}
       </Reveal>
 
-      {!revealed && (
-        <p className="scr-hint">{data.hint}</p>
-      )}
     </section>
   )
 }

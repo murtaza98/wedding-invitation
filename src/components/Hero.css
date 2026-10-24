@@ -42,25 +42,29 @@
   padding-left: 0.28em;
 }
 
-.hero-scroll {
-  color: var(--gold);
+.hero-hand-wrap {
+  position: absolute;
+  top: 64%;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero-hand-img {
   display: block;
   width: 52px;
   height: auto;
-  /* Rotate so finger points upward, then flip for swipe-up gesture */
-  transform: rotate(180deg) scaleX(-1);
-  animation: hero-swipe-up 2s ease-in-out infinite;
+  animation: hero-swipe-up 2.4s ease-in-out infinite;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 @keyframes hero-swipe-up {
-  0%   { transform: rotate(180deg) scaleX(-1) translateY(0);    opacity: 0.75; }
-  40%  { transform: rotate(180deg) scaleX(-1) translateY(12px); opacity: 1;    }
-  70%  { transform: rotate(180deg) scaleX(-1) translateY(12px); opacity: 1;    }
-  100% { transform: rotate(180deg) scaleX(-1) translateY(0);    opacity: 0.75; }
+  0%   { transform: rotate(180deg) scaleX(-1) translateY(-28px); opacity: 0;    }
+  12%  { transform: rotate(180deg) scaleX(-1) translateY(-28px); opacity: 1;    }
+  72%  { transform: rotate(180deg) scaleX(-1) translateY(64px);  opacity: 0.85; }
+  88%  { transform: rotate(180deg) scaleX(-1) translateY(64px);  opacity: 0;    }
+  100% { transform: rotate(180deg) scaleX(-1) translateY(-28px); opacity: 0;    }
 }
 
 @media (prefers-reduced-motion: reduce) {
