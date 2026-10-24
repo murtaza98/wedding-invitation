@@ -2,33 +2,41 @@ import { useEffect, useRef, useState } from 'react'
 import './Hero.css'
 
 const base = import.meta.env.BASE_URL
-const DELAY = 3000   // ms after mount before hand appears
-const SCROLL_THRESHOLD = 40  // px scrolled = user is intentionally browsing
 
 export default function Hero({ names, tagline, place }) {
   const [showHand, setShowHand] = useState(false)
-  const scrolledRef = useRef(false)
-  const timerRef = useRef(null)
+  const scrolledRef  = useRef(false)
+  const nudgeTimer   = useRef(null)
+  const handTimer    = useRef(null)
 
   useEffect(() => {
     const onScroll = () => {
-      if (window.scrollY > SCROLL_THRESHOLD) {
+      if (window.scrollY > 80) {
         scrolledRef.current = true
         setShowHand(false)
-        clearTimeout(timerRef.current)
         window.removeEventListener('scroll', onScroll)
       }
     }
-
     window.addEventListener('scroll', onScroll, { passive: true })
 
-    timerRef.current = setTimeout(() => {
+    // 10s: gentle nudge — scroll down then back up (no hand shown)
+    nudgeTimer.current = setTimeout(() => {
+      if (scrolledRef.current) return
+      window.scrollBy({ top: 90, behavior: 'smooth' })
+      setTimeout(() => {
+        if (!scrolledRef.current) window.scrollBy({ top: -90, behavior: 'smooth' })
+      }, 1300)
+    }, 10000)
+
+    // 20s: show hand if still idle
+    handTimer.current = setTimeout(() => {
       if (!scrolledRef.current) setShowHand(true)
-    }, DELAY)
+    }, 20000)
 
     return () => {
       window.removeEventListener('scroll', onScroll)
-      clearTimeout(timerRef.current)
+      clearTimeout(nudgeTimer.current)
+      clearTimeout(handTimer.current)
     }
   }, [])
 
@@ -56,6 +64,7 @@ export default function Hero({ names, tagline, place }) {
       )}
       <div className="hero-footer">
         {place && <p className="hero-place">{place}</p>}
+        <p className="hero-scroll-label">Scroll up</p>
       </div>
     </section>
   )
