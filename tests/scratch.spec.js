@@ -25,19 +25,19 @@ async function openAndScrollToScratch(page) {
 test.describe('Scratch card — desktop', () => {
   test.use({ viewport: { width: 1280, height: 900 } })
 
-  test('layout: button and hint are not overlapping', async ({ page }) => {
+  test('layout: reveal button is below the scratch card frame', async ({ page }) => {
     await openAndScrollToScratch(page)
     await page.screenshot({ path: 'tests/screenshots/scratch-desktop.png', fullPage: false })
 
-    const btn  = page.locator('.scr-btn')
-    const hint = page.locator('.scr-hint')
+    const frame = page.locator('.scr-frame')
+    const btn   = page.locator('.scr-btn')
+    await expect(frame).toBeVisible()
     await expect(btn).toBeVisible()
-    await expect(hint).toBeVisible()
 
-    const btnBox  = await btn.boundingBox()
-    const hintBox = await hint.boundingBox()
-    // Hint must be below the button with at least 8px gap
-    expect(hintBox.y).toBeGreaterThan(btnBox.y + btnBox.height)
+    const frameBox = await frame.boundingBox()
+    const btnBox   = await btn.boundingBox()
+    // Button must start below the bottom edge of the card frame
+    expect(btnBox.y).toBeGreaterThan(frameBox.y + frameBox.height)
   })
 
   test('scratch card frame is visible', async ({ page }) => {
@@ -85,18 +85,18 @@ test.describe('Scratch card — desktop', () => {
 test.describe('Scratch card — mobile', () => {
   test.use({ viewport: { width: 390, height: 844 } })
 
-  test('layout: button and hint are not overlapping on mobile', async ({ page }) => {
+  test('layout: reveal button is below the scratch card frame on mobile', async ({ page }) => {
     await openAndScrollToScratch(page)
     await page.screenshot({ path: 'tests/screenshots/scratch-mobile.png', fullPage: false })
 
-    const btn  = page.locator('.scr-btn')
-    const hint = page.locator('.scr-hint')
+    const frame = page.locator('.scr-frame')
+    const btn   = page.locator('.scr-btn')
+    await expect(frame).toBeVisible()
     await expect(btn).toBeVisible()
-    await expect(hint).toBeVisible()
 
-    const btnBox  = await btn.boundingBox()
-    const hintBox = await hint.boundingBox()
-    expect(hintBox.y).toBeGreaterThan(btnBox.y + btnBox.height)
+    const frameBox = await frame.boundingBox()
+    const btnBox   = await btn.boundingBox()
+    expect(btnBox.y).toBeGreaterThan(frameBox.y + frameBox.height)
   })
 
   test('scratch card frame fits within viewport width', async ({ page }) => {

@@ -140,7 +140,7 @@ export default function Envelope({ config, onOpen, onStart }) {
         )}
         {showHand && phase === 'idle' && (
           <span className="env-hint-hand" aria-hidden="true">
-            <img src={base + 'scratch-hand.png'} alt="" draggable="false" />
+            <img src={base + 'scratch-hand-v2.png'} alt="" draggable="false" />
           </span>
         )}
       </button>

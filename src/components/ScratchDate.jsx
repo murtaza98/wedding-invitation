@@ -8,7 +8,7 @@ const THRESHOLD = 0.25
 function HandImage() {
   return (
     <img
-      src={import.meta.env.BASE_URL + 'scratch-hand.png'}
+      src={import.meta.env.BASE_URL + 'scratch-hand-v2.png'}
       className="scr-hand-img"
       alt=""
       aria-hidden="true"

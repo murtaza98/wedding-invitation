@@ -18,11 +18,10 @@
   flex-shrink: 0;
 }
 
-/* Place + scroll sit in the cream strip below the card on mobile,
-   or float over the faded bottom of the card on wider screens */
+/* Float over the video, low enough to sit near the bird */
 .hero-footer {
   position: absolute;
-  bottom: clamp(1rem, 3vh, 1.8rem);
+  bottom: 9%;
   left: 0;
   right: 0;
   display: flex;
@@ -59,26 +58,27 @@
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
 }
 
-/* rotate(180deg) flips the hand upside-down (finger points up).
-   With this rotation translateY(d) moves the element visually upward —
-   so the animation still travels bottom → top. */
+/* rotate(270deg) rotates the hand so the index finger points LEFT.
+   With that rotation, local +X = screen UP, so translateX drives
+   vertical screen movement: negative = lower (start), positive = higher (end). */
 @keyframes hero-swipe-up {
-  0%   { transform: rotate(180deg) translateY(-20px); opacity: 0;    }
-  12%  { transform: rotate(180deg) translateY(-20px); opacity: 1;    }
-  72%  { transform: rotate(180deg) translateY(55px);  opacity: 0.85; }
-  88%  { transform: rotate(180deg) translateY(55px);  opacity: 0;    }
-  100% { transform: rotate(180deg) translateY(-20px); opacity: 0;    }
+  0%   { transform: rotate(270deg) translateX(-20px); opacity: 0;    }
+  12%  { transform: rotate(270deg) translateX(-20px); opacity: 1;    }
+  72%  { transform: rotate(270deg) translateX(55px);  opacity: 0.85; }
+  88%  { transform: rotate(270deg) translateX(55px);  opacity: 0;    }
+  100% { transform: rotate(270deg) translateX(-20px); opacity: 0;    }
 }
 
 .hero-scroll-label {
   margin: 0;
   font-family: var(--serif-plain);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
-  font-size: clamp(0.55rem, 1.6vw, 0.68rem);
-  color: var(--gold);
-  opacity: 0.75;
-  padding-left: 0.28em;
+  letter-spacing: 0.3em;
+  font-size: clamp(0.65rem, 2vw, 0.8rem);
+  /* Dark warm brown — visible on cream/parchment card and on white */
+  color: #3d1f08;
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.6);
+  padding-left: 0.3em;
 }
 
 @media (prefers-reduced-motion: reduce) {
