@@ -166,34 +166,35 @@
   text-align: center;
 }
 
-/* ── Animated emoji hand ── */
+/* ── Animated hand image ── */
 .scr-hand {
   position: absolute;
-  bottom: 20%;
+  bottom: 0;
   left: 50%;
   pointer-events: none;
   z-index: 3;
   animation: scr-hand-enter 0.5s ease both, scr-hand-sweep 2s 0.5s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(60, 40, 10, 0.25));
 }
 
-.scr-hand-emoji {
-  font-size: 2rem;
-  line-height: 1;
+.scr-hand-img {
   display: block;
-  filter: drop-shadow(0 3px 6px rgba(80, 55, 10, 0.3));
+  width: clamp(52px, 14%, 72px);
+  height: auto;
+  user-select: none;
 }
 
 @keyframes scr-hand-enter {
-  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 @keyframes scr-hand-sweep {
-  0%   { transform: translateX(-90%) rotate(-15deg); opacity: 0.9; }
-  40%  { transform: translateX(-20%) rotate(-8deg);  opacity: 1;   }
-  60%  { transform: translateX(-20%) rotate(-8deg);  opacity: 1;   }
-  85%  { transform: translateX(-90%) rotate(-15deg); opacity: 0.9; }
-  100% { transform: translateX(-90%) rotate(-15deg); opacity: 0.9; }
+  0%   { transform: translateX(-120%) rotate(-12deg); opacity: 0.88; }
+  40%  { transform: translateX(-30%)  rotate(-6deg);  opacity: 1;    }
+  60%  { transform: translateX(-30%)  rotate(-6deg);  opacity: 1;    }
+  85%  { transform: translateX(-120%) rotate(-12deg); opacity: 0.88; }
+  100% { transform: translateX(-120%) rotate(-12deg); opacity: 0.88; }
 }
 
 @keyframes scr-pop {

@@ -5,9 +5,15 @@ import './ScratchDate.css'
 const BRUSH = 30
 const THRESHOLD = 0.25
 
-function EmojiHand() {
+function HandImage() {
   return (
-    <span className="scr-hand-emoji" role="img" aria-hidden="true">👆</span>
+    <img
+      src={import.meta.env.BASE_URL + 'scratch-hand.png'}
+      className="scr-hand-img"
+      alt=""
+      aria-hidden="true"
+      draggable="false"
+    />
   )
 }
 
@@ -217,7 +223,7 @@ export default function ScratchDate({ data }) {
             />
             {showHand && (
               <div className="scr-hand" aria-hidden="true">
-                <EmojiHand />
+                <HandImage />
               </div>
             )}
           </div>
