@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+
+const HAND_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 48" fill="none"><path d="M20 2C20 2 20 14 20 18C20 16 22 14 24 14C26 14 28 16 28 18V22C28 20 30 18 32 18C34 18 36 20 36 22V28C36 26 38 25 38 27V34C38 40 33 46 26 46H18C13 46 9 42 8 38L4 28C3 26 4 23 7 23C9 23 11 25 12 27V18C12 16 14 14 16 14C18 14 20 16 20 18V2C20 0 22 0 22 2" fill="#c9a84c" opacity="0.9"/><path d="M20 2C20 2 20 14 20 18M12 27V18C12 16 14 14 16 14C18 14 20 16 20 18M28 22V18C28 16 26 14 24 14C22 14 20 16 20 18M36 28V22C36 20 34 18 32 18C30 18 28 20 28 22M38 34V27C38 25 36 26 36 28M4 28L8 38C9 42 13 46 18 46H26C33 46 38 40 38 34" stroke="#8B6914" stroke-width="1.2" stroke-linecap="round"/></svg>`
 import Reveal from './Reveal'
 import './ScratchDate.css'
 
@@ -14,6 +16,7 @@ export default function ScratchDate({ data }) {
   const lastSampleRef = useRef(0)
   const [revealed, setRevealed] = useState(false)
   const revealedRef = useRef(false)
+  const [scratched, setScratched] = useState(false)
 
   const reveal = useCallback(() => {
     if (revealedRef.current) return
@@ -36,13 +39,13 @@ export default function ScratchDate({ data }) {
     const w = rect.width
     const h = rect.height
 
-    // Smooth champagne-gold base gradient (diagonal, bottom-left → top-right)
+    // Muted champagne-gold gradient matching reference (more beige, less yellow)
     const base = ctx.createLinearGradient(0, h, w, 0)
-    base.addColorStop(0,    '#b5a85c')
-    base.addColorStop(0.28, '#ccc07a')
-    base.addColorStop(0.52, '#ddd492')
-    base.addColorStop(0.75, '#cfc47e')
-    base.addColorStop(1,    '#bfb46c')
+    base.addColorStop(0,    '#c2b87c')
+    base.addColorStop(0.28, '#d4cc96')
+    base.addColorStop(0.52, '#e2dcb0')
+    base.addColorStop(0.75, '#d8d09e')
+    base.addColorStop(1,    '#c8be88')
     ctx.fillStyle = base
     ctx.fillRect(0, 0, w, h)
 
@@ -127,6 +130,7 @@ export default function ScratchDate({ data }) {
 
   const onPointerDown = e => {
     if (revealedRef.current) return
+    setScratched(true)
     drawingRef.current = true
     lastPtRef.current = null
     canvasRef.current.setPointerCapture?.(e.pointerId)
@@ -172,6 +176,13 @@ export default function ScratchDate({ data }) {
             onPointerLeave={onPointerUp}
             aria-hidden="true"
           />
+          {!revealed && !scratched && (
+            <div
+              className="scr-hand"
+              aria-hidden="true"
+              dangerouslySetInnerHTML={{ __html: HAND_SVG }}
+            />
+          )}
         </div>
 
         </div>
