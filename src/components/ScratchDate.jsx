@@ -5,40 +5,12 @@ import './ScratchDate.css'
 const BRUSH = 30
 const THRESHOLD = 0.25
 
-function CartoonHand() {
+function EmojiHand() {
   return (
-    <svg className="scr-hand-svg" viewBox="0 0 56 68" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      {/* Radiating impact lines */}
-      <line x1="28" y1="8" x2="28" y2="2"  stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
-      <line x1="38" y1="11" x2="42" y2="6" stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
-      <line x1="18" y1="11" x2="14" y2="6" stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
-      <line x1="46" y1="20" x2="51" y2="17" stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
-      <line x1="10" y1="20" x2="5"  y2="17" stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
-      {/* Glove shadow */}
-      <ellipse cx="29" cy="65" rx="12" ry="3.5" fill="rgba(120,90,30,0.18)"/>
-      {/* Index finger */}
-      <path
-        d="M22 36V16C22 12.1 24.5 9.5 28 9.5C31.5 9.5 34 12.1 34 16V36"
-        fill="white" stroke="#1a1a2e" strokeWidth="2.4" strokeLinejoin="round"
-      />
-      {/* Finger crease */}
-      <path d="M23.5 24 Q28 26 32.5 24" stroke="#d0d0d0" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
-      <path d="M23 31 Q28 33 33 31" stroke="#d0d0d0" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
-      {/* Palm + curled fingers */}
-      <path
-        d="M34 36C34 34 36 33 38 34C40 35 40 38 40 40V43C40 45 38 46.5 36 46L35 46V53C35 57.5 31.5 61 27 61C22.5 61 18 57.8 17 53.5L14 46C13 43.5 14 40.5 16.5 39.5C18.5 38.8 20.5 39.8 21.5 41.5L22 36Z"
-        fill="white" stroke="#1a1a2e" strokeWidth="2.4" strokeLinejoin="round"
-      />
-      {/* Thumb */}
-      <path
-        d="M22 41.5C20 44 17 43.5 15.5 41.5C14 39.5 15 36.5 17 35.5L22 36"
-        fill="white" stroke="#1a1a2e" strokeWidth="2.4" strokeLinejoin="round"
-      />
-      {/* Knuckle bump lines on palm */}
-      <path d="M27 46 Q30 47 33 46" stroke="#d0d0d0" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
-    </svg>
+    <span className="scr-hand-emoji" role="img" aria-hidden="true">👆</span>
   )
 }
+
 
 export default function ScratchDate({ data }) {
   const sectionRef = useRef(null)
@@ -245,7 +217,7 @@ export default function ScratchDate({ data }) {
             />
             {showHand && (
               <div className="scr-hand" aria-hidden="true">
-                <CartoonHand />
+                <EmojiHand />
               </div>
             )}
           </div>
