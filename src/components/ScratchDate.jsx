@@ -33,25 +33,53 @@ export default function ScratchDate({ data }) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     ctxRef.current = ctx
 
-    const draw = () => {
-      ctx.globalCompositeOperation = 'source-over'
-      ctx.drawImage(img, 0, 0, rect.width, rect.height)
-      // title line
-      ctx.fillStyle = 'rgba(60, 35, 15, 0.52)'
-      ctx.textAlign = 'center'
-      ctx.textBaseline = 'middle'
-      ctx.font = "italic 600 1.35rem 'Cormorant Garamond', 'Cormorant', serif"
-      ctx.fillText(data.foilTitle, rect.width / 2, rect.height / 2 - 13)
-      // hint line
-      ctx.font = "400 0.68rem 'Jost', sans-serif"
-      ctx.fillStyle = 'rgba(60, 35, 15, 0.38)'
-      ctx.fillText(data.foilHint, rect.width / 2, rect.height / 2 + 13)
-    }
+    const w = rect.width
+    const h = rect.height
 
-    const img = new Image()
-    img.src = import.meta.env.BASE_URL + 'scratch-foil.png'
-    if (img.complete) draw()
-    else img.onload = draw
+    // Smooth champagne-gold base gradient (diagonal, bottom-left → top-right)
+    const base = ctx.createLinearGradient(0, h, w, 0)
+    base.addColorStop(0,    '#b5a85c')
+    base.addColorStop(0.28, '#ccc07a')
+    base.addColorStop(0.52, '#ddd492')
+    base.addColorStop(0.75, '#cfc47e')
+    base.addColorStop(1,    '#bfb46c')
+    ctx.fillStyle = base
+    ctx.fillRect(0, 0, w, h)
+
+    // Soft radial bloom (upper-center highlight)
+    const bloom = ctx.createRadialGradient(w * 0.4, h * 0.2, 0, w * 0.4, h * 0.35, w * 0.55)
+    bloom.addColorStop(0,   'rgba(255,252,228,0.55)')
+    bloom.addColorStop(0.55,'rgba(255,252,228,0.15)')
+    bloom.addColorStop(1,   'rgba(255,252,228,0)')
+    ctx.fillStyle = bloom
+    ctx.fillRect(0, 0, w, h)
+
+    // Subtle horizontal grain
+    for (let y = 0; y < h; y += 2) {
+      ctx.globalAlpha = 0.022
+      ctx.fillStyle = y % 4 < 2 ? '#fffce0' : '#7a6820'
+      ctx.fillRect(0, y, w, 1)
+    }
+    ctx.globalAlpha = 1
+
+    // Block-centered text
+    const titleSz = Math.max(18, Math.round(h * 0.16))
+    const hintSz  = Math.max(11, Math.round(h * 0.076))
+    const gap     = Math.round(h * 0.08)
+    const totalH  = titleSz + gap + hintSz
+    const titleY  = (h - totalH) / 2 + titleSz / 2
+    const hintY   = titleY + titleSz / 2 + gap + hintSz / 2
+
+    ctx.textAlign    = 'center'
+    ctx.textBaseline = 'middle'
+
+    ctx.font      = `italic 400 ${titleSz}px 'Cormorant Garamond', Georgia, serif`
+    ctx.fillStyle = 'rgba(50, 32, 8, 0.68)'
+    ctx.fillText(data.foilTitle, w / 2, titleY)
+
+    ctx.font      = `400 ${hintSz}px 'Jost', Arial, sans-serif`
+    ctx.fillStyle = 'rgba(50, 32, 8, 0.46)'
+    ctx.fillText(data.foilHint, w / 2, hintY)
   }, [data.foilTitle, data.foilHint])
 
   useEffect(() => {

@@ -13,7 +13,6 @@ import MusicBtn from './components/MusicBtn'
 const PRELOAD_IMAGES = [
   'envelope.png',
   'invitation-bg.png',
-  'scratch-foil.png',
   'closing-bg.png',
 ]
 const PRELOAD_VIDEOS = ['envelope-open.mp4', 'hero-bg.mp4']

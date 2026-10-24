@@ -37,23 +37,23 @@
   gap: 1.4rem;
 }
 
-/* Outer frame */
+/* Outer frame — matches reference .scratch-wrap */
 .scr-frame {
-  padding: 10px;
-  border: 1px solid rgba(176, 141, 78, 0.3);
-  border-radius: 22px;
-  background: rgba(176, 141, 78, 0.06);
-  width: min(94%, 480px);
+  padding: 13px;
+  border: 1px solid #bca885;
+  border-radius: 4px;
+  background: #fffdf8;
+  width: min(calc(100% - 40px), 480px);
+  box-shadow: 0 15px 40px rgba(116, 91, 55, 0.07);
 }
 
 .scr-card {
   position: relative;
   width: 100%;
-  min-height: clamp(160px, 26vh, 210px);
-  border-radius: 14px;
-  background: var(--card);
-  border: 1px solid rgba(176, 141, 78, 0.5);
-  box-shadow: 0 12px 36px rgba(70, 45, 25, 0.1);
+  height: clamp(160px, 26vh, 220px);
+  border-radius: 2px;
+  background: #fffcf7;
+  border: 1px solid #dacdaf;
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -114,10 +114,11 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  border-radius: 14px;
+  border-radius: 2px;
   touch-action: none;
   cursor: grab;
   transition: opacity 0.6s ease;
+  box-shadow: inset 0 0 4px rgba(110, 89, 58, 0.27);
 }
 
 .scr-canvas:active {

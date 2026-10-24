@@ -70,7 +70,7 @@ export default function Events({ title, events }) {
                 <p className="ev-tl-time">{event.time}</p>
               </div>
               <div className="ev-tl-node">
-                <div className="ev-tl-diamond" />
+                <div className="ev-tl-dot" />
               </div>
               <div className="ev-tl-right">
                 <p className="ev-tl-name">{event.name}</p>
