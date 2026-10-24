@@ -1,36 +1,76 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-
-const HAND_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 48" fill="none"><path d="M20 2C20 2 20 14 20 18C20 16 22 14 24 14C26 14 28 16 28 18V22C28 20 30 18 32 18C34 18 36 20 36 22V28C36 26 38 25 38 27V34C38 40 33 46 26 46H18C13 46 9 42 8 38L4 28C3 26 4 23 7 23C9 23 11 25 12 27V18C12 16 14 14 16 14C18 14 20 16 20 18V2C20 0 22 0 22 2" fill="#c9a84c" opacity="0.9"/><path d="M20 2C20 2 20 14 20 18M12 27V18C12 16 14 14 16 14C18 14 20 16 20 18M28 22V18C28 16 26 14 24 14C22 14 20 16 20 18M36 28V22C36 20 34 18 32 18C30 18 28 20 28 22M38 34V27C38 25 36 26 36 28M4 28L8 38C9 42 13 46 18 46H26C33 46 38 40 38 34" stroke="#8B6914" stroke-width="1.2" stroke-linecap="round"/></svg>`
 import Reveal from './Reveal'
 import './ScratchDate.css'
 
 const BRUSH = 30
 const THRESHOLD = 0.25
 
-export default function ScratchDate({ data }) {
-  const wrapRef = useRef(null)
-  const canvasRef = useRef(null)
-  const ctxRef = useRef(null)
-  const drawingRef = useRef(false)
-  const lastPtRef = useRef(null)
-  const lastSampleRef = useRef(0)
-  const [revealed, setRevealed] = useState(false)
-  const revealedRef = useRef(false)
-  const [scratched, setScratched] = useState(false)
+function CartoonHand() {
+  return (
+    <svg className="scr-hand-svg" viewBox="0 0 56 68" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Radiating impact lines */}
+      <line x1="28" y1="8" x2="28" y2="2"  stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
+      <line x1="38" y1="11" x2="42" y2="6" stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
+      <line x1="18" y1="11" x2="14" y2="6" stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
+      <line x1="46" y1="20" x2="51" y2="17" stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
+      <line x1="10" y1="20" x2="5"  y2="17" stroke="#1a1a2e" strokeWidth="2.8" strokeLinecap="round"/>
+      {/* Glove shadow */}
+      <ellipse cx="29" cy="65" rx="12" ry="3.5" fill="rgba(120,90,30,0.18)"/>
+      {/* Index finger */}
+      <path
+        d="M22 36V16C22 12.1 24.5 9.5 28 9.5C31.5 9.5 34 12.1 34 16V36"
+        fill="white" stroke="#1a1a2e" strokeWidth="2.4" strokeLinejoin="round"
+      />
+      {/* Finger crease */}
+      <path d="M23.5 24 Q28 26 32.5 24" stroke="#d0d0d0" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+      <path d="M23 31 Q28 33 33 31" stroke="#d0d0d0" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+      {/* Palm + curled fingers */}
+      <path
+        d="M34 36C34 34 36 33 38 34C40 35 40 38 40 40V43C40 45 38 46.5 36 46L35 46V53C35 57.5 31.5 61 27 61C22.5 61 18 57.8 17 53.5L14 46C13 43.5 14 40.5 16.5 39.5C18.5 38.8 20.5 39.8 21.5 41.5L22 36Z"
+        fill="white" stroke="#1a1a2e" strokeWidth="2.4" strokeLinejoin="round"
+      />
+      {/* Thumb */}
+      <path
+        d="M22 41.5C20 44 17 43.5 15.5 41.5C14 39.5 15 36.5 17 35.5L22 36"
+        fill="white" stroke="#1a1a2e" strokeWidth="2.4" strokeLinejoin="round"
+      />
+      {/* Knuckle bump lines on palm */}
+      <path d="M27 46 Q30 47 33 46" stroke="#d0d0d0" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+    </svg>
+  )
+}
 
+export default function ScratchDate({ data }) {
+  const sectionRef = useRef(null)
+  const wrapRef    = useRef(null)
+  const canvasRef  = useRef(null)
+  const ctxRef     = useRef(null)
+  const drawingRef = useRef(false)
+  const lastPtRef  = useRef(null)
+  const lastSampleRef = useRef(0)
+  const handTimerRef  = useRef(null)
+  const scratchedRef  = useRef(false)
+
+  const [revealed,  setRevealed]  = useState(false)
+  const [showHand,  setShowHand]  = useState(false)
+
+  const revealedRef = useRef(false)
   const reveal = useCallback(() => {
     if (revealedRef.current) return
     revealedRef.current = true
+    scratchedRef.current = true
+    clearTimeout(handTimerRef.current)
+    setShowHand(false)
     setRevealed(true)
   }, [])
 
   const paintFoil = useCallback(() => {
     const canvas = canvasRef.current
-    const wrap = wrapRef.current
+    const wrap   = wrapRef.current
     if (!canvas || !wrap) return
     const rect = wrap.getBoundingClientRect()
-    const dpr = window.devicePixelRatio || 1
-    canvas.width = rect.width * dpr
+    const dpr  = window.devicePixelRatio || 1
+    canvas.width  = rect.width  * dpr
     canvas.height = rect.height * dpr
     const ctx = canvas.getContext('2d')
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
@@ -39,7 +79,7 @@ export default function ScratchDate({ data }) {
     const w = rect.width
     const h = rect.height
 
-    // Muted champagne-gold gradient matching reference (more beige, less yellow)
+    // Muted champagne-gold gradient (matching reference)
     const base = ctx.createLinearGradient(0, h, w, 0)
     base.addColorStop(0,    '#c2b87c')
     base.addColorStop(0.28, '#d4cc96')
@@ -49,7 +89,7 @@ export default function ScratchDate({ data }) {
     ctx.fillStyle = base
     ctx.fillRect(0, 0, w, h)
 
-    // Soft radial bloom (upper-center highlight)
+    // Radial bloom highlight
     const bloom = ctx.createRadialGradient(w * 0.4, h * 0.2, 0, w * 0.4, h * 0.35, w * 0.55)
     bloom.addColorStop(0,   'rgba(255,252,228,0.55)')
     bloom.addColorStop(0.55,'rgba(255,252,228,0.15)')
@@ -75,7 +115,6 @@ export default function ScratchDate({ data }) {
 
     ctx.textAlign    = 'center'
     ctx.textBaseline = 'middle'
-
     ctx.font      = `italic 400 ${titleSz}px 'Cormorant Garamond', Georgia, serif`
     ctx.fillStyle = 'rgba(50, 32, 8, 0.68)'
     ctx.fillText(data.foilTitle, w / 2, titleY)
@@ -85,11 +124,33 @@ export default function ScratchDate({ data }) {
     ctx.fillText(data.foilHint, w / 2, hintY)
   }, [data.foilTitle, data.foilHint])
 
+  // Hand visibility: IntersectionObserver + 2.5s delay
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        clearTimeout(handTimerRef.current)
+        if (entry.isIntersecting && !scratchedRef.current) {
+          handTimerRef.current = setTimeout(() => {
+            if (!scratchedRef.current) setShowHand(true)
+          }, 2500)
+        } else {
+          setShowHand(false)
+        }
+      },
+      { threshold: 0.5 }
+    )
+    observer.observe(section)
+    return () => { observer.disconnect(); clearTimeout(handTimerRef.current) }
+  }, [])
+
   useEffect(() => {
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     if (reduce) { reveal(); return }
     paintFoil()
-    const onResize = () => { if (!revealedRef.current) paintFoil() }
+    const onResize = () => { if (!scratchedRef.current) paintFoil() }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [paintFoil, reveal])
@@ -104,8 +165,8 @@ export default function ScratchDate({ data }) {
     if (!ctx) return
     ctx.globalCompositeOperation = 'destination-out'
     ctx.lineWidth = BRUSH * 2
-    ctx.lineCap = 'round'
-    ctx.lineJoin = 'round'
+    ctx.lineCap   = 'round'
+    ctx.lineJoin  = 'round'
     const last = lastPtRef.current
     if (last) {
       ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(x, y); ctx.stroke()
@@ -120,19 +181,25 @@ export default function ScratchDate({ data }) {
     if (now - lastSampleRef.current < 120) return
     lastSampleRef.current = now
     const canvas = canvasRef.current
-    const ctx = ctxRef.current
+    const ctx    = ctxRef.current
     if (!canvas || !ctx) return
-    const data32 = ctx.getImageData(0, 0, canvas.width, canvas.height).data
+    const d = ctx.getImageData(0, 0, canvas.width, canvas.height).data
     let clear = 0
-    for (let i = 3; i < data32.length; i += 64) { if (data32[i] < 12) clear++ }
-    if (clear / (data32.length / 64) > THRESHOLD) reveal()
+    for (let i = 3; i < d.length; i += 64) { if (d[i] < 12) clear++ }
+    if (clear / (d.length / 64) > THRESHOLD && !revealedRef.current) reveal()
+  }
+
+  const hideHand = () => {
+    scratchedRef.current = true
+    setShowHand(false)
+    clearTimeout(handTimerRef.current)
   }
 
   const onPointerDown = e => {
     if (revealedRef.current) return
-    setScratched(true)
+    hideHand()
     drawingRef.current = true
-    lastPtRef.current = null
+    lastPtRef.current  = null
     canvasRef.current.setPointerCapture?.(e.pointerId)
     scratchTo(posFromEvent(e))
   }
@@ -146,7 +213,7 @@ export default function ScratchDate({ data }) {
   }
 
   return (
-    <section className="scr" id="date">
+    <section className="scr" id="date" ref={sectionRef}>
       <Reveal className="scr-head">
         <p className="eyebrow">{data.eyebrow}</p>
         <h2 className="scr-title">{data.title}</h2>
@@ -158,34 +225,32 @@ export default function ScratchDate({ data }) {
 
       <Reveal delay={140} className="scr-stage">
         <div className="scr-frame">
-        <div className={`scr-card ${revealed ? 'is-revealed' : ''}`} ref={wrapRef}>
-          <div className="scr-content">
-            <p className="scr-save eyebrow">{data.revealEyebrow}</p>
-            <div className="scr-range">
-              <span className="scr-range-main">{data.rangeLine1}</span>
-              <span className="scr-range-year">{data.rangeYear}</span>
+          <div className={`scr-card ${revealed ? 'is-revealed' : ''}`} ref={wrapRef}>
+            <div className="scr-content">
+              <p className="scr-save eyebrow">{data.revealEyebrow}</p>
+              <div className="scr-range">
+                <span className="scr-range-main">{data.rangeLine1}</span>
+                <span className="scr-range-year">{data.rangeYear}</span>
+              </div>
+              <p className="scr-tagline">{data.tagline}</p>
             </div>
-            <p className="scr-tagline">{data.tagline}</p>
-          </div>
-          <canvas
-            ref={canvasRef}
-            className={`scr-canvas ${revealed ? 'is-cleared' : ''}`}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerLeave={onPointerUp}
-            aria-hidden="true"
-          />
-          {!revealed && !scratched && (
-            <div
-              className="scr-hand"
+            <canvas
+              ref={canvasRef}
+              className={`scr-canvas ${revealed ? 'is-cleared' : ''}`}
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+              onPointerLeave={onPointerUp}
               aria-hidden="true"
-              dangerouslySetInnerHTML={{ __html: HAND_SVG }}
             />
-          )}
+            {showHand && (
+              <div className="scr-hand" aria-hidden="true">
+                <CartoonHand />
+              </div>
+            )}
+          </div>
         </div>
 
-        </div>
         {!revealed && (
           <button type="button" className="scr-btn" onClick={reveal}>
             {data.revealButton}
@@ -194,9 +259,7 @@ export default function ScratchDate({ data }) {
       </Reveal>
 
       {!revealed && (
-        <Reveal delay={200} className="scr-hint-wrap">
-          <p className="scr-hint">{data.hint}</p>
-        </Reveal>
+        <p className="scr-hint">{data.hint}</p>
       )}
     </section>
   )
