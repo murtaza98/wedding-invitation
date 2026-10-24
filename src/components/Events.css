@@ -52,7 +52,9 @@
   transform: translate(-50%, -50%);
   z-index: 2;
   pointer-events: none;
-  transition: top 0.08s linear;
+  transition: top 0.1s linear;
+  width: 44px;
+  height: 44px;
 }
 
 .ev-flower-svg {

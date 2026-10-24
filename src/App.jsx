@@ -5,6 +5,7 @@ import Hero from './components/Hero'
 import Invitation from './components/Invitation'
 import ScratchDate from './components/ScratchDate'
 import Events from './components/Events'
+import Countdown from './components/Countdown'
 import Closing from './components/Closing'
 import Loader from './components/Loader'
 import MusicBtn from './components/MusicBtn'
@@ -94,6 +95,12 @@ export default function App() {
         <Invitation data={config.invitation} />
         <ScratchDate data={config.scratch} />
         <Events title={config.eventsTitle} events={config.events} />
+        <Countdown
+          tagline={config.countdown.tagline}
+          title={config.countdown.title}
+          date={config.countdown.date}
+          targetISO={config.countdown.targetISO}
+        />
         <Closing
           initials={config.initials}
           line={config.closing.line}

@@ -53,10 +53,9 @@ export default function Events({ title, events }) {
         </Reveal>
 
         <div className="ev-timeline">
-          <div className="ev-tl-line">
-            <div className="ev-tl-flower" ref={flowerRef}>
-              <TimelineFlower />
-            </div>
+          <div className="ev-tl-line" />
+          <div className="ev-tl-flower" ref={flowerRef}>
+            <TimelineFlower />
           </div>
 
           {events.map((event, i) => (

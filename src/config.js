@@ -49,9 +49,15 @@ export const config = {
   scratch: {
     eyebrow: 'Scratch to reveal',
     title: 'The Dates',
-    foilLabel: 'Scratch here',
+    subtitle: ['A little secret, just for you.', 'Gently scratch the gold to uncover our dates.'],
+    foilTitle: 'A date with forever',
+    foilHint: 'Scratch to uncover',
     revealButton: 'Reveal the dates',
-    display: '25th – 28th\nMarch 2027',
+    revealEyebrow: 'Save these days',
+    rangeLine1: '25–28 March',
+    rangeYear: '2027',
+    tagline: "We can't wait to celebrate with you.",
+    hint: 'Rub gently with your finger or cursor ✦',
   },
 
   // The four celebrations.
@@ -95,6 +101,14 @@ export const config = {
       hijri: '21st Shawwal-ul-Mukarram',
     },
   ],
+
+  // Countdown timer — counts to the Wedding Reception (27 Mar 2027, 7 PM IST).
+  countdown: {
+    tagline: 'Every moment brings us closer',
+    title: 'Until our forever',
+    date: '27 March 2027',
+    targetISO: '2027-03-27T19:00:00+05:30',
+  },
 
   closing: {
     line: 'We look forward to celebrating these blessed days with you.',

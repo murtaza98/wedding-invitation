@@ -2,8 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Reveal from './Reveal'
 import './ScratchDate.css'
 
-const BRUSH = 30 // scratch radius in CSS pixels
-const THRESHOLD = 0.25 // ~3-4 scratch strokes triggers auto-reveal
+const BRUSH = 30
+const THRESHOLD = 0.25
 
 export default function ScratchDate({ data }) {
   const wrapRef = useRef(null)
@@ -36,41 +36,34 @@ export default function ScratchDate({ data }) {
     const draw = () => {
       ctx.globalCompositeOperation = 'source-over'
       ctx.drawImage(img, 0, 0, rect.width, rect.height)
-      ctx.fillStyle = 'rgba(70, 40, 20, 0.45)'
+      // title line
+      ctx.fillStyle = 'rgba(60, 35, 15, 0.52)'
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
-      ctx.font = "500 0.8rem 'Cormorant', serif"
-      ctx.fillText(
-        `✦  ${data.foilLabel.toUpperCase()}  ✦`,
-        rect.width / 2,
-        rect.height / 2,
-      )
+      ctx.font = "italic 600 1.35rem 'Cormorant Garamond', 'Cormorant', serif"
+      ctx.fillText(data.foilTitle, rect.width / 2, rect.height / 2 - 13)
+      // hint line
+      ctx.font = "400 0.68rem 'Jost', sans-serif"
+      ctx.fillStyle = 'rgba(60, 35, 15, 0.38)'
+      ctx.fillText(data.foilHint, rect.width / 2, rect.height / 2 + 13)
     }
 
     const img = new Image()
     img.src = import.meta.env.BASE_URL + 'scratch-foil.png'
-    if (img.complete) {
-      draw()
-    } else {
-      img.onload = draw
-    }
-  }, [data.foilLabel])
+    if (img.complete) draw()
+    else img.onload = draw
+  }, [data.foilTitle, data.foilHint])
 
   useEffect(() => {
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    if (reduce) {
-      reveal()
-      return
-    }
+    if (reduce) { reveal(); return }
     paintFoil()
-    const onResize = () => {
-      if (!revealedRef.current) paintFoil()
-    }
+    const onResize = () => { if (!revealedRef.current) paintFoil() }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [paintFoil, reveal])
 
-  const posFromEvent = (e) => {
+  const posFromEvent = e => {
     const rect = canvasRef.current.getBoundingClientRect()
     return { x: e.clientX - rect.left, y: e.clientY - rect.top }
   }
@@ -84,14 +77,9 @@ export default function ScratchDate({ data }) {
     ctx.lineJoin = 'round'
     const last = lastPtRef.current
     if (last) {
-      ctx.beginPath()
-      ctx.moveTo(last.x, last.y)
-      ctx.lineTo(x, y)
-      ctx.stroke()
+      ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(x, y); ctx.stroke()
     } else {
-      ctx.beginPath()
-      ctx.arc(x, y, BRUSH, 0, Math.PI * 2)
-      ctx.fill()
+      ctx.beginPath(); ctx.arc(x, y, BRUSH, 0, Math.PI * 2); ctx.fill()
     }
     lastPtRef.current = { x, y }
   }
@@ -103,37 +91,26 @@ export default function ScratchDate({ data }) {
     const canvas = canvasRef.current
     const ctx = ctxRef.current
     if (!canvas || !ctx) return
-    const { width, height } = canvas
-    const data32 = ctx.getImageData(0, 0, width, height).data
+    const data32 = ctx.getImageData(0, 0, canvas.width, canvas.height).data
     let clear = 0
-    // sample every 16th pixel for speed
-    for (let i = 3; i < data32.length; i += 64) {
-      if (data32[i] < 12) clear++
-    }
-    const total = data32.length / 64
-    if (clear / total > THRESHOLD) reveal()
+    for (let i = 3; i < data32.length; i += 64) { if (data32[i] < 12) clear++ }
+    if (clear / (data32.length / 64) > THRESHOLD) reveal()
   }
 
-  const onPointerDown = (e) => {
+  const onPointerDown = e => {
     if (revealedRef.current) return
     drawingRef.current = true
     lastPtRef.current = null
     canvasRef.current.setPointerCapture?.(e.pointerId)
     scratchTo(posFromEvent(e))
   }
-
-  const onPointerMove = (e) => {
+  const onPointerMove = e => {
     if (!drawingRef.current || revealedRef.current) return
-    e.preventDefault()
-    scratchTo(posFromEvent(e))
-    sampleProgress()
+    e.preventDefault(); scratchTo(posFromEvent(e)); sampleProgress()
   }
-
   const onPointerUp = () => {
     if (!drawingRef.current) return
-    drawingRef.current = false
-    lastPtRef.current = null
-    sampleProgress()
+    drawingRef.current = false; lastPtRef.current = null; sampleProgress()
   }
 
   return (
@@ -143,14 +120,20 @@ export default function ScratchDate({ data }) {
         <h2 className="scr-title">{data.title}</h2>
       </Reveal>
 
-      <Reveal delay={120} className="scr-stage">
+      <Reveal delay={80} className="scr-subtitle">
+        {data.subtitle.map((line, i) => <p key={i}>{line}</p>)}
+      </Reveal>
+
+      <Reveal delay={140} className="scr-stage">
+        <div className="scr-frame">
         <div className={`scr-card ${revealed ? 'is-revealed' : ''}`} ref={wrapRef}>
           <div className="scr-content">
-            <p className="scr-range">
-              {data.display.split('\n').map((line, i) => (
-                <span key={i} className="scr-range-line">{line}</span>
-              ))}
-            </p>
+            <p className="scr-save eyebrow">{data.revealEyebrow}</p>
+            <div className="scr-range">
+              <span className="scr-range-main">{data.rangeLine1}</span>
+              <span className="scr-range-year">{data.rangeYear}</span>
+            </div>
+            <p className="scr-tagline">{data.tagline}</p>
           </div>
           <canvas
             ref={canvasRef}
@@ -163,12 +146,19 @@ export default function ScratchDate({ data }) {
           />
         </div>
 
+        </div>
         {!revealed && (
           <button type="button" className="scr-btn" onClick={reveal}>
             {data.revealButton}
           </button>
         )}
       </Reveal>
+
+      {!revealed && (
+        <Reveal delay={200} className="scr-hint-wrap">
+          <p className="scr-hint">{data.hint}</p>
+        </Reveal>
+      )}
     </section>
   )
 }
