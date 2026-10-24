@@ -78,6 +78,28 @@
   color: var(--ink);
 }
 
+.inv-inviting {
+  margin-top: 0.5rem;
+}
+
+.inv-inviting-parents {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(0.8rem, 2.2vw, 1rem);
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.inv-inviting-line {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(0.7rem, 1.8vw, 0.88rem);
+  color: var(--ink-soft);
+  line-height: 1.5;
+  max-width: 26em;
+  margin: 0 auto;
+}
+
 .inv-names {
   margin-top: clamp(0.55rem, 1.6vh, 1rem);
 }
@@ -111,11 +133,20 @@
 
 .inv-regards-label {
   color: var(--sage);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
 .inv-regards-names {
   font-family: var(--serif);
-  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  font-size: clamp(0.88rem, 2.4vw, 1.1rem);
   color: var(--ink);
+}
+
+.inv-libas {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(0.68rem, 1.7vw, 0.82rem);
+  color: var(--ink-soft);
+  margin-top: 0.45rem;
+  letter-spacing: 0.02em;
 }

@@ -5,11 +5,6 @@ import './Invitation.css'
 const invBg = `url(${import.meta.env.BASE_URL}invitation-bg.png)`
 
 export default function Invitation({ data }) {
-  const elders = [...data.elders]
-  if (data.paternalGrandmother?.include) {
-    elders.push(data.paternalGrandmother.line)
-  }
-
   return (
     <section className="inv" id="invitation">
       <div className="inv-card" style={{ '--inv-bg': invBg }}>
@@ -28,11 +23,10 @@ export default function Invitation({ data }) {
         </Reveal>
 
         <Reveal delay={180}>
-          <ul className="inv-elders">
-            {elders.map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-          </ul>
+          <div className="inv-inviting">
+            <p className="inv-inviting-parents">{data.invitingParents}</p>
+            <p className="inv-inviting-line">{data.invitingLine}</p>
+          </div>
         </Reveal>
 
         <Reveal delay={120}>
@@ -52,6 +46,7 @@ export default function Invitation({ data }) {
           <div className="inv-regards">
             <p className="inv-regards-label eyebrow">{data.regardsLabel}</p>
             <p className="inv-regards-names">{data.regardsNames}</p>
+            {data.libas && <p className="inv-libas">{data.libas}</p>}
           </div>
         </Reveal>
       </div>

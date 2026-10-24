@@ -146,16 +146,11 @@ export default function ScratchDate({ data }) {
       <Reveal delay={120} className="scr-stage">
         <div className={`scr-card ${revealed ? 'is-revealed' : ''}`} ref={wrapRef}>
           <div className="scr-content">
-            <div className="scr-dates-grid">
-              {data.dates.map(d => (
-                <div key={d.event} className={`scr-date-item${d.featured ? ' is-featured' : ''}`}>
-                  <p className="scr-event eyebrow">{d.event}</p>
-                  <p className="scr-weekday">{d.weekday}</p>
-                  <p className="scr-date">{d.date}</p>
-                  <p className="scr-hijri">{d.hijri}</p>
-                </div>
+            <p className="scr-range">
+              {data.display.split('\n').map((line, i) => (
+                <span key={i} className="scr-range-line">{line}</span>
               ))}
-            </div>
+            </p>
           </div>
           <canvas
             ref={canvasRef}
