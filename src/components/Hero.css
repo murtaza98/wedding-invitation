@@ -44,15 +44,25 @@
 
 .hero-scroll {
   color: var(--gold);
-  animation: hero-bounce 2s ease-in-out infinite;
 }
 
-@keyframes hero-bounce {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(5px); }
+.hero-hand-img {
+  display: block;
+  width: 52px;
+  height: auto;
+  /* Rotate so finger points upward, then flip for swipe-up gesture */
+  transform: rotate(180deg) scaleX(-1);
+  animation: hero-swipe-up 2s ease-in-out infinite;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
 }
 
+@keyframes hero-swipe-up {
+  0%   { transform: rotate(180deg) scaleX(-1) translateY(0);    opacity: 0.75; }
+  40%  { transform: rotate(180deg) scaleX(-1) translateY(12px); opacity: 1;    }
+  70%  { transform: rotate(180deg) scaleX(-1) translateY(12px); opacity: 1;    }
+  100% { transform: rotate(180deg) scaleX(-1) translateY(0);    opacity: 0.75; }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-scroll { animation: none; }
+  .hero-hand-img { animation: none; }
 }
