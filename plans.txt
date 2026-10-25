@@ -118,16 +118,18 @@
 
  ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
  Prompt B2 — Video (Gemini image-to-video, TWO image inputs):
-   Input 1: envelope.png — the closed envelope
-   Input 2: card image generated from Prompt B1 above
+   Input 1: public/envelope.png  — the closed envelope
+   Input 2: public/hero-bg.png   — the invitation card (Mughal arch, maroon names)
+   Output:  public/envelope-open.mp4  — 720×1280 px, 9:16 portrait, 10 s, silent
  ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 
- Two images are provided as input: (1) the closed envelope, (2) the invitation
- card. The video begins on the closed envelope and ends with the card fully
- revealed. Use both input images as the visual anchors for their respective
- moments in the animation.
+ Two images are provided as input: (1) the closed envelope with a burgundy
+ wax seal reading "S & M", (2) the invitation card. The video begins on the
+ closed envelope and ends with the card fully revealed. Use both input images
+ as the exact visual anchors for their respective moments in the animation.
+ Output: 720×1280 pixels, 9:16 portrait, 10 seconds, silent.
 
- Animation sequence — 10 seconds total, portrait 9:16:
+ Animation sequence — 10 seconds total:
 
  0–1 s — Hold.
  The closed envelope is viewed from directly overhead, centered in the
@@ -142,11 +144,11 @@
  2–4 s — Top flap opens + camera begins moving.
  The top triangular flap rotates upward along its hinge until fully open at
  roughly 120°. IMPORTANT: the inner face of the top flap must be the same
- cream-ivory color as the envelope exterior — NOT golden, NOT a different
- color. The golden glow comes from inside the body of the envelope, not from
- the flap itself. Simultaneously, the camera begins a slow continuous move:
- a gentle dolly forward combined with a gradual tilt, shifting perspective
- from directly overhead toward a 30° angled view.
+ cream-ivory color as the envelope exterior — NOT golden. The golden glow
+ comes from inside the body of the envelope, not from the flap itself.
+ Simultaneously, the camera begins a slow continuous move: a gentle dolly
+ forward combined with a gradual tilt, shifting perspective from directly
+ overhead toward a 30° angled view.
 
  4–5.5 s — Side and bottom flaps open.
  The left, right, and bottom flaps swing outward simultaneously like shutters
@@ -159,55 +161,78 @@
 
  5.5–9 s — Card emerges.
  The invitation card (use the provided card image exactly — Mughal arch
- illustration, "Murtaza & Sakina / are getting married!", birds, petals,
- gold border) rises slowly and gracefully from inside the open envelope.
- The card lifts as though carried by the warm light beneath it — smooth,
- natural, no bounce or momentum. It fades in gently as it rises. The camera
- pans upward softly to follow the card, keeping it centered in the portrait
- frame. The card settles into place with a calm, gentle ease.
+ illustration, "Sakina & Murtaza" in deep burgundy-wine script, "are getting
+ married!" below it, birds, petals, gold border) rises slowly and gracefully
+ from inside the open envelope. The card lifts as though carried by the warm
+ light beneath it — smooth, natural, no bounce. It fades in gently as it
+ rises. The camera pans upward softly to follow the card, keeping it centered
+ in the 720×1280 portrait frame.
 
  9–10 s — Final hold.
- Camera has arrived at approximately 40–45° angled perspective, close in.
- The card fills the center of the portrait frame, the open envelope sits
- below it. Hold on this composed final shot.
+ Camera at approximately 40–45° angled perspective, close in. The card fills
+ the center of the portrait frame, the open envelope sits below it.
 
- Camera summary: one continuous smooth movement throughout — slow dolly
- forward combined with a gradual tilt from 0° (overhead) to 45° (angled).
- No side-to-side movement. No sudden changes. All motion is unhurried and
- cinematic.
+ Camera summary: one continuous smooth movement — slow dolly forward combined
+ with a gradual tilt from 0° (overhead) to 45° (angled). No side-to-side
+ movement. No sudden changes. Cinematic and unhurried.
 
  Style: photorealistic envelope, painterly card. Soft warm studio lighting.
  Luxury wedding aesthetic. No audio — silent video only.
 
 
 ────────────────────────────────────────────────────────────────────────────────
- SECTION 3 — HERO  (TODO)
+ SECTION 3 — HERO  (DONE)
 ────────────────────────────────────────────────────────────────────────────────
 
- Goal:    Replace the current CSS/SVG arched-balcony hero with a
-          Gemini-generated background image. The text overlay
-          ("Murtaza & Sakina / are getting married! / Mumbai · March 2027")
-          stays as React text on top.
+ Status:  Live at public/hero-bg.mp4 (looping animated card, portrait 9:16)
+          Poster frame: public/hero-bg.png (same card, static)
+          Names updated to maroon/burgundy text matching the wax seal color.
+          "Scroll up" chevron arrows and text baked into the image/video.
 
- Integration:
-   1. Generate the image with Prompt C below
-   2. Save as public/hero-bg.jpg (or .png)
-   3. In Hero.css, replace the current background with:
-        background-image: url('/hero-bg.jpg');
-        background-size: cover;
-        background-position: center top;
-   4. Adjust text color/shadow if needed for contrast
+ Integration: hero-bg.mp4 plays muted + looped as the <video> background
+ in Hero.jsx. hero-bg.png is used as the poster frame while video loads.
 
- Prompt C — Gemini hero background:
- ─────────────────────────────────────
- An ultra-wide cinematic photograph of an ornate Mughal or Indo-Islamic
- archway, photographed from below looking up toward a warm twilight sky.
- The arch is carved from white marble with intricate floral jali lattice
- work and gold inlay. Soft fairy lights and hanging jasmine garlands frame
- the arch. A warm amber and rose glow fills the sky beyond the arch. The
- bottom third of the image is intentionally dark/shadowed so that text can
- sit there legibly. Landscape orientation 16:9. No people. Photorealistic,
- editorial wedding photography style.
+ Prompt C — Gemini image edit: change name text color
+ ─────────────────────────────────────────────────────
+ (Apply to hero-bg.png before animating)
+
+ Edit this image. Change only the color of the text "Sakina", "&", and
+ "Murtaza" from gold to a deep burgundy-wine color — the same rich dark red
+ as the wax seal on a classic wedding envelope (approximately #7A2030). Keep
+ everything else completely identical: the arch, columns, florals, birds,
+ petals, gold border, "are getting married!" text, the scroll-up chevron
+ arrows, and the "scroll up" text at the bottom. No other changes.
+
+ Prompt C2 — Gemini image-to-video: animate hero-bg.png
+ ────────────────────────────────────────────────────────
+   Input:  public/hero-bg.png  (the updated card with maroon names)
+   Output: public/hero-bg.mp4  — portrait 9:16, 6–8 seconds, seamless loop
+
+ Animate this image with soft, dreamlike motion. Keep the arch, gold border,
+ all text ("Sakina & Murtaza", "are getting married!", the chevron arrows,
+ and "scroll up" at the bottom), and the columns completely still. Add gentle
+ motion to four things only:
+
+ 1. Birds — the birds in flight slowly flap their wings with a natural rhythm
+    and drift very subtly through the air; the perched bird at the bottom
+    gently shifts its weight.
+
+ 2. Petals — the scattered pink rose petals drift slowly downward with a soft
+    rotation, as if carried by a light breeze.
+
+ 3. Florals — the bouquet clusters in the corners sway almost imperceptibly,
+    like a gentle breath of wind.
+
+ 4. Scroll indicator — the two chevron arrows (∧ ∧) at the bottom animate in
+    a gentle looping upward pulse: the lower chevron fades in first, then the
+    upper one follows a beat later, both drifting upward by a few pixels and
+    fading out, then resetting — like a breathing "scroll up" cue. The
+    "scroll up" text below the arrows subtly brightens and dims in sync, as
+    if softly glowing, to draw the eye without being distracting.
+
+ All motion is extremely subtle, slow, and unhurried — never jarring. The
+ scroll animation should feel like a gentle heartbeat, not a flashing button.
+ Total duration 6–8 seconds, designed to loop seamlessly. Portrait 9:16.
 
 
 ────────────────────────────────────────────────────────────────────────────────

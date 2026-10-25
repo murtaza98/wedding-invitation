@@ -89,7 +89,6 @@ export default function App() {
         <Hero
           names={config.hero.names}
           tagline={config.hero.tagline}
-          place={config.hero.place}
           active={opened}
         />
         <Invitation data={config.invitation} />

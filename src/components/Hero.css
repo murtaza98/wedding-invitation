@@ -18,28 +18,6 @@
   flex-shrink: 0;
 }
 
-/* Float over the video, low enough to sit near the bird */
-.hero-footer {
-  position: absolute;
-  bottom: 9%;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  z-index: 2;
-}
-
-.hero-place {
-  margin: 0;
-  font-family: var(--serif-plain);
-  text-transform: uppercase;
-  letter-spacing: 0.28em;
-  font-size: clamp(0.6rem, 1.8vw, 0.75rem);
-  color: var(--gold);
-  padding-left: 0.28em;
-}
 
 .hero-hand-wrap {
   position: absolute;
@@ -69,17 +47,6 @@
   100% { transform: rotate(270deg) translateX(-20px); opacity: 0;    }
 }
 
-.hero-scroll-label {
-  margin: 0;
-  font-family: var(--serif-plain);
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  font-size: clamp(0.65rem, 2vw, 0.8rem);
-  /* Dark warm brown — visible on cream/parchment card and on white */
-  color: #3d1f08;
-  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.6);
-  padding-left: 0.3em;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .hero-hand-img { animation: none; }

@@ -67,7 +67,9 @@ export default function Events({ title, events }) {
               <div className="ev-tl-left">
                 <p className="ev-tl-weekday">{event.weekday}</p>
                 <p className="ev-tl-date">{event.date}</p>
-                <p className="ev-tl-time">{event.time}</p>
+                {Array.isArray(event.time)
+                  ? event.time.map(t => <p key={t} className="ev-tl-time">{t}</p>)
+                  : <p className="ev-tl-time">{event.time}</p>}
               </div>
               <div className="ev-tl-node">
                 <div className="ev-tl-dot" />

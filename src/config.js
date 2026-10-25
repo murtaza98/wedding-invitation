@@ -66,10 +66,10 @@ export const config = {
     {
       name: 'Mehandi',
       weekday: 'Thursday',
-      venue: 'Bandra',
-      area: 'Mumbai',
+      venue: 'Sonabhai Hall',
+      area: 'Bandra, Mumbai',
       date: '25 March 2027',
-      time: '7:00 PM',
+      time: ['Kattha: 10 AM – 12 PM', 'Mehendi: 4 – 8 PM'],
       hijri: '18th Shawwal-ul-Mukarram',
     },
     {
@@ -78,7 +78,7 @@ export const config = {
       venue: 'Zaini Masjid',
       area: 'Kurla West, Mumbai',
       date: '26 March 2027',
-      time: '7:00 PM',
+      time: '7:30 PM',
       hijri: '19th Shawwal-ul-Mukarram',
     },
     {
@@ -97,7 +97,7 @@ export const config = {
       venue: 'Zaini Masjid',
       area: 'Kurla West, Mumbai',
       date: '28 March 2027',
-      time: '1:00 PM',
+      time: '12:00 PM',
       hijri: '21st Shawwal-ul-Mukarram',
     },
   ],

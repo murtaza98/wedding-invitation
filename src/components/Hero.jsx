@@ -3,7 +3,7 @@ import './Hero.css'
 
 const base = import.meta.env.BASE_URL
 
-export default function Hero({ names, tagline, place, active }) {
+export default function Hero({ names, tagline, active }) {
   const [showHand, setShowHand] = useState(false)
   const scrolledRef    = useRef(false)
   const nudgingRef     = useRef(false)
@@ -89,10 +89,6 @@ export default function Hero({ names, tagline, place, active }) {
           />
         </div>
       )}
-      <div className="hero-footer">
-        {place && <p className="hero-place">{place}</p>}
-        <p className="hero-scroll-label">Scroll up</p>
-      </div>
     </section>
   )
 }
