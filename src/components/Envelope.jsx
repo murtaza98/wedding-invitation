@@ -37,13 +37,13 @@ export default function Envelope({ config, onOpen, onStart }) {
     clearTimeout(handTimerRef.current)
     setShowRings(false)
     setShowHand(false)
+    onStart?.()
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     if (reduce) {
       finish()
       return
     }
     setPhase('opening')
-    onStart?.()
     if (video && videoRef.current) {
       const v = videoRef.current
       v.play().catch(() => {})

@@ -1,25 +1,10 @@
-import { useState } from 'react'
 import './MusicBtn.css'
 
-export default function MusicBtn({ audioRef }) {
-  const [playing, setPlaying] = useState(true)
-
-  const toggle = () => {
-    const audio = audioRef.current
-    if (!audio) return
-    if (playing) {
-      audio.pause()
-      setPlaying(false)
-    } else {
-      audio.play().catch(() => {})
-      setPlaying(true)
-    }
-  }
-
+export default function MusicBtn({ playing, onToggle }) {
   return (
     <button
       className={`mbtn ${playing ? 'mbtn--on' : 'mbtn--off'}`}
-      onClick={toggle}
+      onClick={onToggle}
       aria-label={playing ? 'Pause music' : 'Play music'}
     >
       <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

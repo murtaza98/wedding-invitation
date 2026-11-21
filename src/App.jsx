@@ -17,9 +17,13 @@ const PRELOAD_IMAGES = [
 ]
 const PRELOAD_VIDEOS = ['envelope-open.mp4', 'hero-bg.mp4']
 const TOTAL = PRELOAD_IMAGES.length + PRELOAD_VIDEOS.length
+const musicTrack = new URLSearchParams(window.location.search).get('music') === 'genz'
+  ? 'back_music.mp3'
+  : 'back_music_og.mp3'
 
 export default function App() {
   const [opened, setOpened] = useState(false)
+  const [musicPlaying, setMusicPlaying] = useState(false)
   const audioRef = useRef(null)
   const [loaderVisible, setLoaderVisible] = useState(true)
   const [loadProgress, setLoadProgress] = useState(0)
@@ -83,6 +87,16 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'auto' })
   }
 
+  const toggleMusic = () => {
+    const audio = audioRef.current
+    if (!audio) return
+    if (audio.paused) {
+      audio.play().catch(() => {})
+    } else {
+      audio.pause()
+    }
+  }
+
   return (
     <>
       <main className="site">
@@ -109,8 +123,16 @@ export default function App() {
 
       {!opened && <Envelope config={config.envelope} onOpen={handleOpen} onStart={handleAnimationStart} />}
 
-      <audio ref={audioRef} src={import.meta.env.BASE_URL + 'back_music.mp3'} loop preload="none" />
-      {opened && <MusicBtn audioRef={audioRef} />}
+      <audio
+        ref={audioRef}
+        src={import.meta.env.BASE_URL + musicTrack}
+        loop
+        preload="none"
+        onPlaying={() => setMusicPlaying(true)}
+        onPause={() => setMusicPlaying(false)}
+        onError={() => setMusicPlaying(false)}
+      />
+      {opened && <MusicBtn playing={musicPlaying} onToggle={toggleMusic} />}
 
       {loaderVisible && (
         <Loader
